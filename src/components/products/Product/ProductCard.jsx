@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
 		saveCartItems(cartContents)
 	}
 
-	return <div className={classes.card}>
+	return <article className={classes.card}>
 		<h2>{product.name}</h2>
 		<div className={classes.description}>
 			<div>
@@ -37,7 +37,7 @@ const ProductCard = ({ product }) => {
 			</button>
 			<Link to={`${routes.products}/${product.id}`}>Details...</Link>
 		</div>
-	</div>
+	</article>
 }
 
 ProductCard.propTypes = {

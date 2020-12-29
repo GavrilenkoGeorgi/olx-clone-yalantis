@@ -1,18 +1,30 @@
 import React from 'react'
 
+import classes from './ProductGroups.module.sass'
+
 const ProductGroups = ({ groups }) => {
 
+	const groupTotalPrice = ({ products }) =>
+		products.reduce((acc, curr) => (acc += curr.price), 0)
+
 	if (!groups.length)
-		return <>Empty cart</>
-	else return <>
+		return <div className={classes.emptyCart}>
+			Your cart is empty.
+		</div>
+	else return <div className={classes.cart}>
 		{groups.map(group => (
-			<div style={{ border: '1px solid red' }}
-				key={group.origin}>
+			<div key={group.origin}
+				className={classes.group}
+			>
 				<p>{group.origin}</p>
-				<p>{group.products.length} pcs</p>
+				<div className={classes.totals}>
+					<p>{group.products.length} pcs</p>
+					<p>Total: <span>{groupTotalPrice(group)}</span>
+					</p>
+				</div>
 			</div>
 		))}
-	</>
+	</div>
 }
 
 export default ProductGroups

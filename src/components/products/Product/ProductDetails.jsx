@@ -15,7 +15,7 @@ const ProductDetails = ({ match }) => {
 			.then(response => {
 				setProduct(response.data)
 			})
-	}, [match, setProduct])
+	}, [ match, setProduct ])
 
 	let productDetails
 
@@ -27,9 +27,7 @@ const ProductDetails = ({ match }) => {
 		productDetails = <Product product={product} />
 	}
 
-	return <>
-		{productDetails}
-	</>
+	return productDetails
 }
 
 ProductDetails.propTypes = {

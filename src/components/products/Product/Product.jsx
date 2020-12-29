@@ -1,21 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classes from './Product.module.sass'
 
 const Product = ({ product }) => {
-	return <section>
-		<article>
-			<h1>Product details</h1>
+
+	const formatDate = dateString => {
+		const date = new Date(dateString)
+
+		const options = {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		}
+		return <span>{date.toLocaleString('en-us', options)}</span>
+	}
+
+	return <>
+		<h1>Product details</h1>
+		<article className={classes.layout}>
 			<h2>{product.name}</h2>
-			<div>
+			<div className={classes.details}>
 				<p>
-					Origin: {product.origin}
+					Origin: <span>{product.origin}</span>
 				</p>
 				<p>
-					Price: {product.price}
+					Price: <span>{product.price}</span>
 				</p>
 			</div>
+			<div className={classes.date}>
+				{formatDate(product.createdAt)}
+			</div>
 		</article>
-	</section>
+	</>
 }
 
 Product.propTypes = {

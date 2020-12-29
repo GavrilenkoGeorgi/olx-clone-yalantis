@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
 
-import ProductGroups from './ProductGroups'
-
 import { useCart } from '../../../context/CartContext'
 import { calcTotal, groupByOrigin } from '../../../utils'
+
+import ProductGroups from './ProductGroups'
 import classes from './CartPage.module.sass'
 
 const CartPage = () => {
 
 	const { items } = useCart()
-	const [ groupedProducts, setGroupedProducts ] = useState(null)
+	const [ groupedProducts, setGroupedProducts ] = useState([])
 
 	useEffect(() => {
 		setGroupedProducts([ ...groupByOrigin(items) ])
-	}, [items])
+	}, [ items ])
 
 	return <section className={classes.layout}>
 		<h1>Cart</h1>
