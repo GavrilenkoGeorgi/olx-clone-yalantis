@@ -5,17 +5,17 @@ import { productsListApi } from '../../../api/productsApi'
 import { CartContext } from '../../../context/CartContext'
 import { loadData as loadSavedCartItems } from '../../../utils'
 
-export const AppContainer = ({ children }) => {
+import Loader from '../../widgets/Loader/Loader'
+
+const AppContainer = ({ children }) => {
 
 	const requestIsSuccessful = config => {
-		// set loading data status
-		console.log('Loading...')
+		setIsLoading(true)
 		return config
 	}
 
 	const reponseIsSuccessful = response => {
-		// set response OK status
-		console.log('Response status:', response.status)
+		setIsLoading(false)
 		return response
 	}
 
@@ -30,8 +30,12 @@ export const AppContainer = ({ children }) => {
 	const savedCartItems = loadSavedCartItems()
 	const [ items, setItems ] = useState(savedCartItems || [])
 
+	const [ isLoading, setIsLoading ] = useState(false)
+	const showLoader = () => isLoading ? <Loader /> : null
+
 	return <CartContext.Provider value={{ items, setItems }}>
 		{children}
+		{showLoader()}
 	</CartContext.Provider>
 }
 

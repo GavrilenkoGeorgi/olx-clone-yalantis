@@ -1,9 +1,9 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { useCart } from '../../context/CartContext'
-import routes from '../routes/routesConstants'
-import { calcTotal } from '../../utils'
+import { useCart } from '../../../context/CartContext'
+import routes from '../../routes/routesConstants'
+import { calcTotal } from '../../../utils'
 import classes from './CartWidget.module.sass'
 
 const CartWidget = () => {

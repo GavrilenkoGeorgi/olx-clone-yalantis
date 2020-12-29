@@ -2,10 +2,10 @@ import React from 'react'
 import { useRouteMatch, NavLink } from 'react-router-dom'
 import routes from '../../routes/routesConstants'
 
-import CartWidget from '../../widgets/CartWidget'
+import CartWidget from '../../widgets/CartWidget/CartWidget'
 import classes from './Header.module.sass'
 
-export const Header = () => {
+const Header = () => {
 
 	const matchCartPage = useRouteMatch(routes.cart)
 
