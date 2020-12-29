@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import { productsListApi } from '../../../api/productsApi'
 import { CartContext } from '../../../context/CartContext'
+import { loadData as loadSavedCartItems } from '../../../utils'
 
 export const AppContainer = ({ children }) => {
 
@@ -26,7 +27,8 @@ export const AppContainer = ({ children }) => {
 	productsListApi.interceptors.request.use(requestIsSuccessful, handleError)
 	productsListApi.interceptors.response.use(reponseIsSuccessful, handleError)
 
-	const [items, setItems] = useState([])
+	const savedCartItems = loadSavedCartItems()
+	const [ items, setItems ] = useState(savedCartItems || [])
 
 	return <CartContext.Provider value={{ items, setItems }}>
 		{children}

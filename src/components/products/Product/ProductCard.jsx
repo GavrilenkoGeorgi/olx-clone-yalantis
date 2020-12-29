@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { useCart } from '../../../context/CartContext'
 import routes from '../../routes/routesConstants'
+import { saveData as saveCartItems } from '../../../utils'
 
 import classes from './ProductCard.module.sass'
 
@@ -12,7 +13,9 @@ const ProductCard = ({ product }) => {
 	const { items, setItems } = useCart()
 
 	const addProductToCart = product => {
-		setItems([ ...items, product ])
+		const cartContents = [ ...items, product ]
+		setItems(cartContents)
+		saveCartItems(cartContents)
 	}
 
 	return <div className={classes.card}>
