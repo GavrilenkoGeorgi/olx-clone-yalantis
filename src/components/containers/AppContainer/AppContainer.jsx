@@ -6,6 +6,7 @@ import { CartContext } from '../../../context/CartContext'
 import { loadData as loadSavedCartItems } from '../../../utils'
 
 import Loader from '../../widgets/Loader/Loader'
+import Notification from '../../widgets/Notification/Notification'
 
 const AppContainer = ({ children }) => {
 
@@ -20,7 +21,9 @@ const AppContainer = ({ children }) => {
 	}
 
 	const handleError = error => {
-		console.error('Custom error handler:', error)
+		console.error(error.message)
+		setIsLoading(false)
+		setNotification({ ...notification, message: error.message, variant: 'error' })
 		return Promise.reject(error)
 	}
 
@@ -33,9 +36,19 @@ const AppContainer = ({ children }) => {
 	const [ isLoading, setIsLoading ] = useState(false)
 	const showLoader = () => isLoading ? <Loader /> : null
 
+	const emptyNotification = { message: '', variant: '' }
+	const [ notification, setNotification ] = useState(emptyNotification)
+
+	const closeNotification = () => setNotification(emptyNotification)
+	const showNotification = () =>
+		notification.message
+			? <Notification notification={notification} close={closeNotification} />
+			: null
+
 	return <CartContext.Provider value={{ items, setItems }}>
 		{children}
 		{showLoader()}
+		{showNotification()}
 	</CartContext.Provider>
 }
 

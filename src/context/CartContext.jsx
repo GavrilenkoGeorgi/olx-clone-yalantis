@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react'
 export const CartContext =
 	createContext({
 		items: [],
-		setItems: () => [{}]
+		setItems: () => [ {} ]
 	})
 
 export const useCart = () => useContext(CartContext)

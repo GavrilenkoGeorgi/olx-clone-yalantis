@@ -5,7 +5,7 @@ import classes from './ProductGroups.module.sass'
 const ProductGroups = ({ groups }) => {
 
 	const groupTotalPrice = ({ products }) =>
-		products.reduce((acc, curr) => (acc += curr.price), 0)
+		products.reduce((acc, curr) => acc += curr.price, 0)
 
 	if (!groups.length)
 		return <div className={classes.emptyCart}>
