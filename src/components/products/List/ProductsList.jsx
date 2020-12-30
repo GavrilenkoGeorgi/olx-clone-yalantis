@@ -1,15 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import ProductCard from '../Product/ProductCard'
 
-import ProductsContext from '../../../context/ProductsContext'
+import { useProducts } from '../../../context/ProductsContext'
 import classes from './ProductsList.module.sass'
 
 const ProductsList = () => {
 
-	const products = useContext(ProductsContext)
+	const { products } = useProducts()
 
 	return <section className={classes.layout}>
-		{products?.map(item => (
+		{products.map(item => (
 			<ProductCard
 				key={item.id}
 				product={item}

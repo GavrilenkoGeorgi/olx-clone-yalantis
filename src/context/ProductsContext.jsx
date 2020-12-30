@@ -1,5 +1,8 @@
-import { createContext } from 'react'
+import { createContext, useContext } from 'react'
 
-const ProductsContext = createContext(null)
+export const ProductsContext =
+	createContext({
+		products: []
+	})
 
-export default ProductsContext
+export const useProducts = () => useContext(ProductsContext)
