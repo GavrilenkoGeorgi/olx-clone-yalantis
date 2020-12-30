@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 
 import useAxios from '../../../hooks/useAxios'
 import { productsListApi } from '../../../api/productsApi'
@@ -7,7 +7,6 @@ import ProductsContext from '../../../context/ProductsContext'
 
 import ProductsList from '../../products/List/ProductsList'
 import classes from './ProductsPage.module.sass'
-
 
 const ProductsPage = () => {
 
@@ -19,9 +18,13 @@ const ProductsPage = () => {
 		url: URIs.products
 	})
 
+	const handleProducts = useCallback(items => {
+		setProducts(items)
+	}, [ setProducts ])
+
 	useEffect(() => {
-		if (response) setProducts(response.items)
-	}, [ response ])
+		if (response) handleProducts(response.items)
+	}, [ response, handleProducts ])
 
 	return <section className={classes.content}>
 		<h1>Products page</h1>
