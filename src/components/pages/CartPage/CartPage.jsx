@@ -4,6 +4,7 @@ import { useCart } from '../../../context/CartContext'
 import { calcTotal, groupByOrigin } from '../../../utils'
 
 import ProductGroups from './ProductGroups'
+import BackButton from '../../widgets/BackButton/BackButton'
 import classes from './CartPage.module.sass'
 
 const CartPage = () => {
@@ -14,6 +15,7 @@ const CartPage = () => {
 	const memoizedTotal = useMemo(() => calcTotal(items), [ items ])
 
 	return <section className={classes.layout}>
+		<BackButton />
 		<h1>Cart</h1>
 		<div className={classes.total}>
 			<p>Total items: {items.length}</p>

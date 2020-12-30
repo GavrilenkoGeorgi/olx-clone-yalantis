@@ -6,6 +6,7 @@ import { productsListApi } from '../../../api/productsApi'
 import URIs from '../../../api/URIs'
 
 import Product from './Product'
+import BackButton from '../../widgets/BackButton/BackButton'
 
 const ProductDetails = () => {
 
@@ -31,7 +32,10 @@ const ProductDetails = () => {
 		productDetails = <Product product={product} />
 	}
 
-	return productDetails
+	return <>
+		<BackButton />
+		{productDetails}
+	</>
 }
 
 export default ProductDetails
