@@ -21,12 +21,12 @@ const ProductCard = ({ product }) => {
 	return <article className={classes.card}>
 		<h2>{product.name}</h2>
 		<div className={classes.description}>
-			<div>
-				<span>Origin:</span> {product.origin}
-			</div>
-			<div>
-				<span>Price:</span> {product.price}
-			</div>
+			<p>
+				Origin: <span className={classes.info}>{product.origin}</span>
+			</p>
+			<p>
+				Price: <span>{product.price}</span>
+			</p>
 		</div>
 		<div className={classes.controls}>
 			<button

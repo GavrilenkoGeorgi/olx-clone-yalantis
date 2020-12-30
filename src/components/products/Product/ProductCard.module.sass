@@ -1,4 +1,5 @@
 @import 'styles/colors'
+@import 'styles/mixins'
 
 .card
 	flex-grow: 1
@@ -11,20 +12,26 @@
 	display: flex
 	flex-direction: column
 	justify-content: space-between
+	+defaultTransition($prop: background-color)
+	&:hover
+		background-color: $secondary-light-color
 	h2
 		text-align: right
 		margin-top: 0
-		margin-bottom: 3rem
+		margin-bottom: 1rem
 
 
 .description
 	display: flex
 	justify-content: space-between
-	margin: 1rem 0
-	font-weight: 500
-	span
+	margin: .75rem 0 .25rem 0
+	p
 		font-weight: 400
 		color: $light-gray-color
+		span
+			text-transform: capitalize
+			color: $primary-color
+			font-weight: 500
 
 .controls
 	margin: .5rem 0
@@ -38,7 +45,7 @@
 	border: 1px solid $secondary-color
 	padding: .5rem
 	border-radius: .3rem
-	transition: background-color .2s ease-in
+	+defaultTransition($prop: background-color)
 	&:hover
 		background-color: $secondary-color
 		cursor: pointer
