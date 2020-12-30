@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { productsListApi } from '../../../api/productsApi'
-import urls from '../../../api/urls'
+import URIs from '../../../api/URIs'
 
 import Product from './Product'
 
@@ -11,7 +11,7 @@ const ProductDetails = ({ match }) => {
 	const [ product, setProduct ] = useState(null)
 
 	useEffect(() => {
-		productsListApi.get(`${urls.products}/${match.params.id}`)
+		productsListApi.get(`${URIs.products}/${match.params.id}`)
 			.then(response => {
 				setProduct(response.data)
 			})
