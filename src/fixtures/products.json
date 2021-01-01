@@ -1,29 +1,34 @@
-[
-	{
-		"isEditable": false,
-		"id": "357d769d-8146-4e2e-845a-b462f0569cbf",
-		"name": "Generic Steel Fish",
-		"price": 143,
-		"origin": "asia",
-		"createdAt": "2020-12-22T17:28:32.126Z",
-		"updatedAt": "2020-12-22T17:28:32.126Z"
-	},
-	{
-		"isEditable": false,
-		"id": "5f1e7ce7-60bf-42ed-b405-6df69740ecfb",
-		"name": "Fantastic Granite Pizza",
-		"price": 157,
-		"origin": "usa",
-		"createdAt": "2020-12-22T17:28:32.195Z",
-		"updatedAt": "2020-12-22T17:28:32.195Z"
-	},
-	{
-		"isEditable": false,
-		"id": "ccc041b8-a8c5-4aec-b3de-d694cec267a9",
-		"name": "Practical Frozen Shoes",
-		"price": 831,
-		"origin": "usa",
-		"createdAt": "2020-12-22T17:28:32.215Z",
-		"updatedAt": "2020-12-22T17:28:32.215Z"
-	}
-]
+{
+	"page": 1,
+		"perPage": 50,
+		"totalItems": 200,
+		"items": [
+		{
+			"isEditable": false,
+			"id": "357d769d-8146-4e2e-845a-b462f0569cbf",
+			"name": "Generic Steel Fish",
+			"price": 143,
+			"origin": "asia",
+			"createdAt": "2020-12-22T17:28:32.126Z",
+			"updatedAt": "2020-12-22T17:28:32.126Z"
+		},
+		{
+			"isEditable": false,
+			"id": "5f1e7ce7-60bf-42ed-b405-6df69740ecfb",
+			"name": "Fantastic Granite Pizza",
+			"price": 157,
+			"origin": "usa",
+			"createdAt": "2020-12-22T17:28:32.195Z",
+			"updatedAt": "2020-12-22T17:28:32.195Z"
+		},
+		{
+			"isEditable": false,
+			"id": "ccc041b8-a8c5-4aec-b3de-d694cec267a9",
+			"name": "Practical Frozen Shoes",
+			"price": 831,
+			"origin": "usa",
+			"createdAt": "2020-12-22T17:28:32.215Z",
+			"updatedAt": "2020-12-22T17:28:32.215Z"
+		}
+	]
+}
