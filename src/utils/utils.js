@@ -1,24 +1,26 @@
 /**
  * Calculate total price
- * @param {Object[]} objects - Array of product objects
+ * @param {Object[]} arrayOfObjects - Array of product objects
+ * @param {number} object.price - Price of the product
  *
  * @throws Throws an error if argument is missing or invalid
  *
- * @returns {numner} Current total
+ * @returns {number} Current total
  */
 
-export const calcTotal = objects => {
+export const calcTotal = arrayOfObjects => {
 
-	if (!objects || !Array.isArray(objects))
+	if (!arrayOfObjects || !Array.isArray(arrayOfObjects))
 		throw new Error('Can\'t calculate total, argument is missing or invalid.')
 
-	return objects.map(item => item.price)
+	return arrayOfObjects.map(item => item.price)
 		.reduce((total, current) => total + current, 0)
 }
 
 /**
  * Group array of product objects by property
  * @param {Object[]} arrayOfObjects - Array of product objects
+ * @param {string} object.origin - Origin of the product
  *
  * @throws - Will throw an error if arg is missing or invalid
  *
