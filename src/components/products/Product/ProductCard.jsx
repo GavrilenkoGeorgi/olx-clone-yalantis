@@ -18,6 +18,11 @@ const ProductCard = ({ product }) => {
 		saveCartItems(cartContents)
 	}
 
+	const DetailsLink = () =>
+		<Link to={`${routes.products}/${product.id}`}>Details...</Link>
+
+	const MemodDetailsLink = React.memo(DetailsLink)
+
 	return <article className={classes.card}>
 		<h2>{product.name}</h2>
 		<div className={classes.description}>
@@ -35,7 +40,7 @@ const ProductCard = ({ product }) => {
 			>
 				Add to cart
 			</button>
-			<Link to={`${routes.products}/${product.id}`}>Details...</Link>
+			<MemodDetailsLink />
 		</div>
 	</article>
 }
@@ -44,4 +49,4 @@ ProductCard.propTypes = {
 	product: productType.isRequired
 }
 
-export default ProductCard
+export default React.memo(ProductCard)
