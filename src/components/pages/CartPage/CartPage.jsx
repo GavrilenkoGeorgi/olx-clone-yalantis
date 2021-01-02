@@ -3,8 +3,8 @@ import React, { useMemo } from 'react'
 import { useCart } from '../../../context/CartContext'
 import { calcTotal, groupByOrigin } from '../../../utils'
 
-import ProductGroups from './ProductGroups'
-import BackButton from '../../widgets/BackButton/BackButton'
+import { CartProductGroups } from '../../products'
+import { BackButton } from '../../widgets'
 import classes from './CartPage.module.sass'
 
 const CartPage = () => {
@@ -22,7 +22,7 @@ const CartPage = () => {
 			<p>Running total: {memoizedTotal}</p>
 		</div>
 		<div className={classes.products}>
-			<ProductGroups groups={memoizedGroups} />
+			<CartProductGroups groups={memoizedGroups} />
 		</div>
 	</section>
 }

@@ -5,7 +5,7 @@ import { productsListApi } from '../../../api/productsApi'
 import URIs from '../../../api/URIs'
 import { ProductsContext } from '../../../context/ProductsContext'
 
-import ProductsList from '../../products/List/ProductsList'
+import { ProductsList } from '../../products'
 import classes from './ProductsPage.module.sass'
 
 const ProductsPage = () => {

@@ -1,10 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { arrayOf } from 'prop-types'
 import { productGroup } from '../../propTypes'
 
-import classes from './ProductGroups.module.sass'
+import classes from './CartProductGroups.module.sass'
 
-const ProductGroups = ({ groups }) => {
+const CartProductGroups = ({ groups }) => {
 
 	const groupTotalPrice = ({ products }) =>
 		products.reduce((acc, curr) => acc += curr.price, 0)
@@ -29,12 +29,12 @@ const ProductGroups = ({ groups }) => {
 	</div>
 }
 
-ProductGroups.propTypes = {
-	groups: PropTypes.arrayOf(productGroup)
+CartProductGroups.propTypes = {
+	groups: arrayOf(productGroup)
 }
 
-ProductGroups.defaultProps = {
+CartProductGroups.defaultProps = {
 	groups: []
 }
 
-export default ProductGroups
+export default CartProductGroups

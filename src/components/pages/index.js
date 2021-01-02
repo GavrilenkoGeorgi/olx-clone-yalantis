@@ -1,0 +1,6 @@
+export { default as Footer } from './Footer/Footer'
+export { default as Header } from './Header/Header'
+export { default as MainPage } from './MainPage/MainPage'
+export { default as ProductsPage } from './ProductsPage/ProductsPage'
+export { default as CartPage } from './CartPage/CartPage'
+export { default as FourOFour } from './FourOFour/FourOFour'

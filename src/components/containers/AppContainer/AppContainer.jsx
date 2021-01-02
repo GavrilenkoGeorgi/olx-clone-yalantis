@@ -5,8 +5,7 @@ import { productsListApi } from '../../../api/productsApi'
 import { CartContext } from '../../../context/CartContext'
 import { loadData as loadSavedCartItems } from '../../../utils'
 
-import Loader from '../../widgets/Loader/Loader'
-import Notification from '../../widgets/Notification/Notification'
+import { Loader, Notification } from '../../widgets'
 
 const AppContainer = ({ children }) => {
 

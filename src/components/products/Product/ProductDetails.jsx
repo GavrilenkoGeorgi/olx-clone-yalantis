@@ -6,7 +6,7 @@ import { productsListApi } from '../../../api/productsApi'
 import URIs from '../../../api/URIs'
 
 import Product from './Product'
-import BackButton from '../../widgets/BackButton/BackButton'
+import { BackButton } from '../../widgets'
 
 const ProductDetails = () => {
 

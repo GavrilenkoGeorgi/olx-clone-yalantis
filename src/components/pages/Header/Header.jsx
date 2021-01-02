@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouteMatch, NavLink } from 'react-router-dom'
 import routes from '../../routes/routesConstants'
 
-import CartWidget from '../../widgets/CartWidget/CartWidget'
+import { CartWidget } from '../../widgets'
 import classes from './Header.module.sass'
 
 const Header = () => {

@@ -1,5 +1,4 @@
 import React from 'react'
-
 import classes from './FourOFour.module.sass'
 
 const FourOFour = () => {
