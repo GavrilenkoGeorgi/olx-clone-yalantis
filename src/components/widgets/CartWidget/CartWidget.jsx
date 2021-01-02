@@ -11,10 +11,12 @@ const CartWidget = () => {
 
 	const { items } = useCart()
 
+	const total = calcTotal(items)
+
 	return <div className={classes.widget}>
 		<NavLink to={routes.cart} >
 			<span className={classes.total}>
-				{calcTotal(items)}
+				{total}
 			</span>
 			<CartIcon className={classes.icon} />
 		</NavLink>

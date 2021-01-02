@@ -4,7 +4,7 @@ import products from '../fixtures/products.json'
 
 describe('Utils', () => {
 	it('calcTotal\' calculates total', () => {
-		const total = calcTotal(products)
+		const total = calcTotal(products.items)
 		expect(total).toEqual(1131)
 	})
 
@@ -17,9 +17,9 @@ describe('Utils', () => {
 	})
 
 	it('groupByOrigin\' groups by origin', () => {
-		const [ firstProduct, secondProduct ] = products
+		const [ firstProduct, secondProduct ] = products.items
 
-		const grouped = groupByOrigin(products)
+		const grouped = groupByOrigin(products.items)
 		expect(grouped).toHaveLength(2)
 
 		const [ firstGroup, secondGroup ] = grouped
