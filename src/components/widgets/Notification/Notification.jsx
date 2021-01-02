@@ -1,5 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { func } from 'prop-types'
+import { notification } from '../../propTypes'
 
 import classes from './Notification.module.sass'
 
@@ -20,8 +21,14 @@ const Notification = ({ notification, close }) => {
 }
 
 Notification.propTypes = {
-	notification: PropTypes.object.isRequired,
-	close: PropTypes.func.isRequired
+	notification,
+	close: func.isRequired
+}
+
+Notification.defaultProps = {
+	notification: {
+		message: 'No message set.'
+	}
 }
 
 export default Notification

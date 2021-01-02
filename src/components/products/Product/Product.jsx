@@ -1,5 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { productType } from '../../propTypes'
+
 import classes from './Product.module.sass'
 
 const Product = ({ product }) => {
@@ -35,7 +36,7 @@ const Product = ({ product }) => {
 }
 
 Product.propTypes = {
-	product: PropTypes.object.isRequired
+	product: productType.isRequired
 }
 
 export default Product

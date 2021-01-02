@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { productGroup } from '../../propTypes'
 
 import classes from './ProductGroups.module.sass'
 
@@ -25,6 +27,14 @@ const ProductGroups = ({ groups }) => {
 			</div>
 		))}
 	</div>
+}
+
+ProductGroups.propTypes = {
+	groups: PropTypes.arrayOf(productGroup)
+}
+
+ProductGroups.defaultProps = {
+	groups: []
 }
 
 export default ProductGroups

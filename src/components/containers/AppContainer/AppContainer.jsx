@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import { children } from '../../propTypes'
 
 import { productsListApi } from '../../../api/productsApi'
 import { CartContext } from '../../../context/CartContext'
@@ -23,7 +23,7 @@ const AppContainer = ({ children }) => {
 	const handleError = error => {
 		console.error(error.message)
 		setIsLoading(false)
-		setNotification({ ...notification, message: error.message, variant: 'error' })
+		setNotification({ message: error.message, variant: 'error' })
 		return Promise.reject(error)
 	}
 
@@ -53,7 +53,11 @@ const AppContainer = ({ children }) => {
 }
 
 AppContainer.propTypes = {
-	children: PropTypes.array.isRequired
+	children
+}
+
+AppContainer.defaultProps = {
+	children: []
 }
 
 export default AppContainer

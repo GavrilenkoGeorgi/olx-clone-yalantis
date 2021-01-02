@@ -1,6 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { productType } from '../../propTypes'
 
 import { useCart } from '../../../context/CartContext'
 import routes from '../../routes/routesConstants'
@@ -41,7 +41,7 @@ const ProductCard = ({ product }) => {
 }
 
 ProductCard.propTypes = {
-	product: PropTypes.object.isRequired
+	product: productType.isRequired
 }
 
 export default ProductCard
