@@ -6,7 +6,7 @@ import classes from './CartProductGroups.module.sass'
 
 const CartProductGroups = ({ groups }) => {
 
-	const groupTotalPrice = ({ products }) =>
+	const totalPriceOfTheGroup = ({ products }) =>
 		products.reduce((acc, curr) => acc += curr.price, 0)
 
 	if (!groups.length)
@@ -21,7 +21,7 @@ const CartProductGroups = ({ groups }) => {
 				<p>{group.origin}</p>
 				<div className={classes.totals}>
 					<p>{group.products.length} pcs</p>
-					<p>Total: <span>{groupTotalPrice(group)}</span>
+					<p>Total: <span>{totalPriceOfTheGroup(group)}</span>
 					</p>
 				</div>
 			</div>

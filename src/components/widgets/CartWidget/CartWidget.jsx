@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { useCart } from '../../../context/CartContext'
@@ -10,13 +10,12 @@ import classes from './CartWidget.module.sass'
 const CartWidget = () => {
 
 	const { items } = useCart()
-
-	const total = calcTotal(items)
+	const memoTotal = useMemo(() => calcTotal(items), [ items ])
 
 	return <div className={classes.widget}>
 		<NavLink to={routes.cart} >
 			<span className={classes.total}>
-				{total}
+				{memoTotal}
 			</span>
 			<CartIcon className={classes.icon} />
 		</NavLink>

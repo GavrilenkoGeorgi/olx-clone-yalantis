@@ -44,11 +44,13 @@ const AppContainer = ({ children }) => {
 			? <Notification notification={notification} close={closeNotification} />
 			: null
 
-	return <CartContext.Provider value={{ items, setItems }}>
-		{children}
+	return <>
 		{showLoader()}
 		{showNotification()}
-	</CartContext.Provider>
+		<CartContext.Provider value={{ items, setItems }}>
+			{children}
+		</CartContext.Provider>
+	</>
 }
 
 AppContainer.propTypes = {
