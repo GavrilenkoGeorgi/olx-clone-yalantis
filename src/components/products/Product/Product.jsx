@@ -2,6 +2,7 @@ import React from 'react'
 import { productType } from '../../propTypes'
 import { formatDate } from '../../../utils'
 
+import AddToCartButton from './AddToCartButton'
 import classes from './Product.module.sass'
 
 const Product = ({ product }) => {
@@ -22,6 +23,9 @@ const Product = ({ product }) => {
 			</div>
 			<div className={classes.date}>
 				<span>{date}</span>
+			</div>
+			<div className={classes.controls}>
+				<AddToCartButton product={product} />
 			</div>
 		</article>
 	</>

@@ -9,7 +9,7 @@ import products from '../../../fixtures/products.json'
 
 const setItems = jest.fn()
 
-describe('<CartPage />', () => {
+describe('<CartPage /> component', () => {
 	render(
 		<CartContext.Provider value={{ items: products.items, setItems }}>
 			<BrowserRouter>

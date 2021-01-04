@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import FourOFour from './FourOFour'
 
-describe('<FourOFor /> component', () => {
+describe('<FourOFour /> component', () => {
 	beforeAll(() => {
 		render(
 			<FourOFour />

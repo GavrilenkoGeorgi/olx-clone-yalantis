@@ -7,7 +7,7 @@ import products from '../../../fixtures/products.json'
 
 const [ product ] = products.items
 
-describe('<ProductsListComponent />', () => {
+describe('<ProductCard /> component', () => {
 	beforeEach(() => {
 		render(
 			<BrowserRouter>

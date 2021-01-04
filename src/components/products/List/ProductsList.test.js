@@ -6,7 +6,7 @@ import ProductsList from './ProductsList'
 import { ProductsContext } from '../../../context/ProductsContext'
 import products from '../../../fixtures/products.json'
 
-describe('<ProductsListComponent />', () => {
+describe('<ProductsList /> component', () => {
 	beforeEach(() => {
 		render(
 			<ProductsContext.Provider value={{ products: products.items }}>

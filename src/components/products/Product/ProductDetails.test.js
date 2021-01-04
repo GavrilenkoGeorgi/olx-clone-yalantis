@@ -20,7 +20,7 @@ const server = setupServer(
 		})
 )
 
-describe('ProductDetails component', () => {
+describe('<ProductDetails /> component', () => {
 	beforeAll(() => server.listen())
 	afterEach(() => server.resetHandlers())
 	afterAll(() => server.close())
