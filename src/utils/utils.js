@@ -41,3 +41,26 @@ export const groupByOrigin = arrayOfObjects => {
 	const result = Object.values(data)
 	return result
 }
+
+/**
+ * Format date
+ * @param dateString - ISO 8601 date string
+ *
+ * @throw - Will throw an error of provided date string is invalid
+ *
+ * @returns {string} - Formatted date string
+ */
+
+export const formatDate = dateString => {
+	const date = new Date(dateString)
+
+	if (date.toString() === 'Invalid Date')
+		throw new Error('Can\'t create date from given string.')
+
+	const options = {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric'
+	}
+	return date.toLocaleString('en-us', options)
+}

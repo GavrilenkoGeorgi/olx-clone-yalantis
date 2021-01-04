@@ -1,20 +1,12 @@
 import React from 'react'
 import { productType } from '../../propTypes'
+import { formatDate } from '../../../utils'
 
 import classes from './Product.module.sass'
 
 const Product = ({ product }) => {
 
-	const formatDate = dateString => {
-		const date = new Date(dateString)
-
-		const options = {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		}
-		return <span>{date.toLocaleString('en-us', options)}</span>
-	}
+	const date = formatDate(product.createdAt)
 
 	return <>
 		<h1>Product details</h1>
@@ -29,7 +21,7 @@ const Product = ({ product }) => {
 				</p>
 			</div>
 			<div className={classes.date}>
-				{formatDate(product.createdAt)}
+				<span>{date}</span>
 			</div>
 		</article>
 	</>

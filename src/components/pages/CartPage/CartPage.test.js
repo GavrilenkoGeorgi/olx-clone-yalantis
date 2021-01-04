@@ -4,7 +4,7 @@ import { render, screen, within } from '@testing-library/react'
 
 import { calcTotal } from '../../../utils'
 import { CartContext } from '../../../context/CartContext'
-import { CartPage } from '../'
+import CartPage from './CartPage'
 import products from '../../../fixtures/products.json'
 
 const setItems = jest.fn()
