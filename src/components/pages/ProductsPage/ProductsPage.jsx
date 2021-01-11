@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
+import { useErrorHandler } from 'react-error-boundary'
 
 import useAxios from '../../../hooks/useAxios'
 import { productsListApi } from '../../../api/productsApi'
@@ -11,8 +12,9 @@ import classes from './ProductsPage.module.sass'
 const ProductsPage = () => {
 
 	const [ products, setProducts ] = useState([])
+	const handleError = useErrorHandler()
 
-	const { response } = useAxios({
+	const { response, error } = useAxios({
 		api: productsListApi,
 		method: 'get',
 		url: URIs.products
@@ -23,8 +25,10 @@ const ProductsPage = () => {
 	}, [ setProducts ])
 
 	useEffect(() => {
-		if (response) handleProducts(response.items)
-	}, [ response, handleProducts ])
+		response
+			? handleProducts(response.items)
+			: handleError(error)
+	}, [ response, handleProducts, error, handleError ])
 
 	return <section className={classes.content}>
 		<h1>Products page</h1>

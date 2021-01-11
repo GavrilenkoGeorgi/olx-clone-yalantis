@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 import { children } from '../../propTypes'
 
 import { productsListApi } from '../../../api/productsApi'
 import { CartContext } from '../../../context/CartContext'
 import { loadData as loadSavedCartItems } from '../../../utils'
+import ErrorFallback from '../ErrorBoundary/ErrorFallback'
 
 import { Loader, Notification } from '../../widgets'
 
@@ -47,9 +49,11 @@ const AppContainer = ({ children }) => {
 	return <>
 		{showLoader()}
 		{showNotification()}
-		<CartContext.Provider value={{ items, setItems }}>
-			{children}
-		</CartContext.Provider>
+		<ErrorBoundary FallbackComponent={ErrorFallback}>
+			<CartContext.Provider value={{ items, setItems }}>
+				{children}
+			</CartContext.Provider>
+		</ErrorBoundary>
 	</>
 }
 
