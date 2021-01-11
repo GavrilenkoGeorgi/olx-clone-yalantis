@@ -1,6 +1,6 @@
 {
 	"name": "olx-clone-yalantis",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Yalantis OLX clone homework",
 	"private": true,
 	"dependencies": {

@@ -1,0 +1,25 @@
+@import 'styles/colors'
+
+.group
+	border: .1rem solid $secondary-light-color
+	background-color: $primary-light-color
+	border-radius: .3rem
+	margin: .5rem
+	padding: 1rem
+	p
+		text-align: right
+		font-style: normal
+		margin-top: .25rem
+		&::first-letter
+			text-transform: capitalize
+
+.totals
+	display: flex
+	p
+		padding-right: 1rem
+		margin: .25rem 0
+		&:last-child
+			padding-right: 0rem
+	span
+		font-weight: bold
+		font-style: italic

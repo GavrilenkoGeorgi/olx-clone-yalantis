@@ -4,27 +4,21 @@ import { productGroup } from '../../propTypes'
 
 import classes from './CartProductGroups.module.sass'
 
-const CartProductGroups = ({ groups }) => {
+import ProductGroup from './ProductGroup/ProductGroup'
 
-	const totalPriceOfTheGroup = ({ products }) =>
-		products.reduce((acc, curr) => acc += curr.price, 0)
+const CartProductGroups = ({ groups }) => {
 
 	if (!groups.length)
 		return <div className={classes.emptyCart}>
 			Your cart is empty.
 		</div>
-	else return <div className={classes.cart}>
+
+	return <div className={classes.cart}>
 		{groups.map(group => (
-			<div key={group.origin}
-				className={classes.group}
-			>
-				<p>{group.origin}</p>
-				<div className={classes.totals}>
-					<p>{group.products.length} pcs</p>
-					<p>Total: <span>{totalPriceOfTheGroup(group)}</span>
-					</p>
-				</div>
-			</div>
+			<ProductGroup
+				key={group.origin}
+				group={group}
+			/>
 		))}
 	</div>
 }
