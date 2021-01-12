@@ -1,0 +1,18 @@
+@import 'styles/colors'
+@import 'styles/mixins'
+
+.container
+	width: 100%
+	text-align: right
+	button
+		color: $primary-color
+		margin: 1rem
+		padding: 1rem
+		background-color: $primary-light-color
+		border: none
+		font-weight: bold
+		border-radius: .3rem
+		+defaultTransition($prop: background-color)
+		cursor: pointer
+		&:hover
+			background-color: $secondary-light-color

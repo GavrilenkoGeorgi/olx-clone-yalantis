@@ -1,0 +1,32 @@
+@import 'styles/colors'
+@import 'styles/mixins'
+
+.widget
+	flex-grow: 1
+	align-items: center
+	display: flex
+	justify-content: space-around
+	a
+		text-decoration: none !important
+
+.total
+	position: relative
+	bottom: -.6rem
+	right: -1rem
+	padding: .15rem .275rem
+	border-radius: .3rem
+	color: white
+	font-weight: bold
+	font-size: 80%
+	background-color: $primary-color
+	+defaultTransition($prop: background-color)
+	&:hover
+		background-color: $secondary-color
+
+.icon
+	height: 1.7rem
+	color: $primary-color
+	+defaultTransition($prop: color)
+	&:hover
+		color: $secondary-color
+		cursor: pointer

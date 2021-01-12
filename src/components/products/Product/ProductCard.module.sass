@@ -1,0 +1,41 @@
+@import 'styles/colors'
+@import 'styles/mixins'
+
+.card
+	flex-grow: 1
+	border: .1rem solid $secondary-light-color
+	border-radius: .2rem
+	width: 17rem
+	max-width: 20rem
+	margin: .8rem
+	padding: .8rem
+	display: flex
+	flex-direction: column
+	justify-content: space-between
+	+defaultTransition($prop: box-shadow)
+	&:hover
+		box-shadow: 0rem 0rem .2rem .1rem $secondary-light-color
+	h2
+		text-align: right
+		margin-top: 0
+		margin-bottom: 1rem
+
+
+.description
+	display: flex
+	justify-content: space-between
+	margin: .75rem 0 .25rem 0
+	p
+		font-weight: 400
+		color: $light-gray-color
+		span
+			text-transform: capitalize
+			color: $primary-color
+			font-weight: 500
+
+.controls
+	margin: .5rem 0
+	display: flex
+	align-items: center
+	justify-content: center
+	justify-content: space-between

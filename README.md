@@ -1,3 +1,5 @@
+[![ci-tests Actions Status](https://github.com/GavrilenkoGeorgi/olx-clone-yalantis/workflows/ci-tests/badge.svg)](https://github.com/GavrilenkoGeorgi/olx-clone-yalantis/actions)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
