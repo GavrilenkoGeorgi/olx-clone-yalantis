@@ -1,0 +1,57 @@
+import {
+	createSlice,
+	createAsyncThunk,
+	createEntityAdapter
+} from '@reduxjs/toolkit'
+import { productsListApi } from '../../api/productsApi'
+import URIs from '../../api/URIs'
+
+const productsAdapter = createEntityAdapter({
+	sortComparer: (a, b) => a.id.localeCompare(b.id)
+})
+
+const initialState = productsAdapter.getInitialState({
+	page: 0,
+	perPage: 0,
+	totalItems: 0,
+	status: 'idle',
+	error: null
+})
+
+export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
+	const response = await productsListApi.get(URIs.products)
+	return response.data
+})
+
+const productsSlice = createSlice({
+	name: 'products',
+	initialState,
+	reducers: {},
+	extraReducers: {
+		[fetchProducts.pending]: (state) => {
+			state.status = 'loading'
+		},
+		[fetchProducts.fulfilled]: (state, { payload }) => {
+			const { page, perPage, totalItems, items } = payload
+
+			state.status = 'succeeded'
+			state.page = page
+			state.perPage = perPage
+			state.totalItems = totalItems
+
+			productsAdapter.upsertMany(state, items)
+		},
+		[fetchProducts.rejected]: (state, action) => {
+			state.status = 'failed'
+			state.error = action.error.message
+		},
+	}
+})
+
+export default productsSlice.reducer
+
+export const {
+	selectAll: selectAllProducts,
+	selectById: selectProductById,
+	selectIds: selectProductIds
+} = productsAdapter.getSelectors(state => state.products)

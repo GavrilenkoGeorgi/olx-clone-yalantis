@@ -1,20 +1,43 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { fetchProducts, selectProductIds } from '../../../store/products/productsSlice'
+
 import ProductCard from '../Product/ProductCard'
 
-import { useProducts } from '../../../context/ProductsContext'
 import classes from './ProductsList.module.sass'
 
 const ProductsList = () => {
 
-	const { products } = useProducts()
+	const dispatch = useDispatch()
+	const orderedProductIds = useSelector(selectProductIds)
+
+	const productsStatus = useSelector(state => state.products.status)
+	const error = useSelector(state => state.products.error)
+
+	useEffect(() => {
+		if (productsStatus === 'idle') {
+			dispatch(fetchProducts())
+		}
+	}, [ productsStatus, dispatch ])
+
+	let content
+
+	if (productsStatus === 'loading') {
+		<div>Loading...</div>
+	} else if (productsStatus === 'succeeded') {
+		content = orderedProductIds.map(productId => (
+			<ProductCard
+				key={productId}
+				productId={productId}
+			/>
+		))
+	} else if (productsStatus === 'failed') {
+		content = <div>{error}</div>
+	}
 
 	return <section className={classes.layout}>
-		{products.map(item => (
-			<ProductCard
-				key={item.id}
-				product={item}
-			/>
-		))}
+		{content}
 	</section>
 }
 
