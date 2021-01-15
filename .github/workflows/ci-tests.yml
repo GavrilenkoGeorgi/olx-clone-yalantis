@@ -2,10 +2,8 @@
 name: ci-tests
 
 on:
-  push:
-    branches: [ main, lesson-1 ]
   pull_request:
-    branches: [ main, lesson-1 ]
+    branches: [ main, lesson-2 ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
