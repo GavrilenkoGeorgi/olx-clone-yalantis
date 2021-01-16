@@ -1,27 +1,86 @@
-import React, { useMemo } from 'react'
-import { productGroup } from '../../../propTypes'
+import React, { useMemo, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { productType } from '../../../propTypes'
 
+import {
+	itemAdded,
+	itemRemoved,
+	itemsRemoved,
+	itemQuantityRemoved
+} from '../../../../store/cart/cartSlice'
+
+import Button from '../../../UI/Button/Button'
+import NumberInput from '../../../UI/Inputs/NumberInput/NumberInput'
 import classes from './ProductGroup.module.sass'
 
-const ProductGroup = ({ group }) => {
+const ProductGroup = ({ product }) => {
+
+	const dispatch = useDispatch()
+
+	const [ pcsToRemove, setPcsToRemove ] = useState('1')
 
 	const memoizedTotal =
-		useMemo(() => group.products.reduce((acc, curr) => acc += curr.price, 0), [ group ])
+		useMemo(() => product.quantity * product.price, [ product ])
 
-	return <div key={group.origin}
+	const handleAddItem = () => {
+		dispatch(itemAdded(product))
+	}
+
+	const handleRemoveItem = () => {
+		dispatch(itemRemoved(product))
+	}
+
+	const handleRemoveAllItems = () => {
+		dispatch(itemsRemoved(product))
+	}
+
+	const removeCertainQuantity = () => {
+		dispatch(itemQuantityRemoved({
+			pcs: Number(pcsToRemove),
+			id: product.id
+		}))
+	}
+
+	return <div key={product.origin}
 		className={classes.group}
 	>
-		<p>{group.origin}</p>
+		<p>{product.name}</p>
+		<p>{product.origin}</p>
 		<div className={classes.totals}>
-			<p>{group.products.length} pcs</p>
+			<p>{product.quantity} pcs</p>
 			<p>Total: <span>{memoizedTotal}</span>
 			</p>
+		</div>
+		<div>
+			<Button label="+"
+				clicked={handleAddItem}
+			/>
+			<Button label="-"
+				clicked={handleRemoveItem}
+			/>
+			<Button label="remove all"
+				clicked={handleRemoveAllItems}
+			/>
+		</div>
+		<div>
+			<NumberInput
+				labelText="Remove this many pcs:"
+				id="pcs"
+				name="pcs"
+				min="1"
+				value={pcsToRemove}
+				onChange={(e) => setPcsToRemove(e.target.value)}
+				max={product.quantity.toString()}
+			/>
+			<Button label="remove"
+				clicked={removeCertainQuantity}
+			/>
 		</div>
 	</div>
 }
 
 ProductGroup.propTypes = {
-	group: productGroup.isRequired
+	product: productType.isRequired
 }
 
 export default ProductGroup

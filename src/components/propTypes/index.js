@@ -1,2 +1,1 @@
-export { product as productType, productGroup, children,
-	notification } from './propTypes'
+export { productType, children, notification } from './propTypes'

@@ -3,8 +3,6 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { children } from '../../propTypes'
 
 import { productsListApi } from '../../../api/productsApi'
-import { CartContext } from '../../../context/CartContext'
-import { loadData as loadSavedCartItems } from '../../../utils'
 import ErrorFallback from '../ErrorBoundary/ErrorFallback'
 
 import { Loader, Notification } from '../../widgets'
@@ -31,9 +29,6 @@ const AppContainer = ({ children }) => {
 	productsListApi.interceptors.request.use(requestIsSuccessful, handleError)
 	productsListApi.interceptors.response.use(reponseIsSuccessful, handleError)
 
-	const savedCartItems = loadSavedCartItems()
-	const [ items, setItems ] = useState(savedCartItems || [])
-
 	const [ isLoading, setIsLoading ] = useState(false)
 	const showLoader = () => isLoading ? <Loader /> : null
 
@@ -50,9 +45,7 @@ const AppContainer = ({ children }) => {
 		{showLoader()}
 		{showNotification()}
 		<ErrorBoundary FallbackComponent={ErrorFallback}>
-			<CartContext.Provider value={{ items, setItems }}>
-				{children}
-			</CartContext.Provider>
+			{children}
 		</ErrorBoundary>
 	</>
 }

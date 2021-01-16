@@ -1,34 +1,34 @@
 import React from 'react'
 import { arrayOf } from 'prop-types'
-import { productGroup } from '../../propTypes'
+import { productType } from '../../propTypes'
 
 import classes from './CartProductGroups.module.sass'
 
 import ProductGroup from './ProductGroup/ProductGroup'
 
-const CartProductGroups = ({ groups }) => {
+const CartProductGroups = ({ items }) => {
 
-	if (!groups.length)
+	if (!items.length)
 		return <div className={classes.emptyCart}>
 			Your cart is empty.
 		</div>
 
 	return <div className={classes.cart}>
-		{groups.map(group => (
+		{items.map(item => (
 			<ProductGroup
-				key={group.origin}
-				group={group}
+				key={item.id}
+				product={item}
 			/>
 		))}
 	</div>
 }
 
 CartProductGroups.propTypes = {
-	groups: arrayOf(productGroup)
+	items: arrayOf(productType)
 }
 
 CartProductGroups.defaultProps = {
-	groups: []
+	items: []
 }
 
 export default CartProductGroups
