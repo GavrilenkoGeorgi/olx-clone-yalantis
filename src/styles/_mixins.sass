@@ -1,4 +1,5 @@
 @import 'dimensions'
+@import 'colors'
 
 =mainSectionLayout()
 	flex: 1 1 auto
@@ -17,3 +18,15 @@
 
 =defaultTransition($prop)
 	transition: $prop .3s ease-in
+
+=responsive($args...)
+	@if length($args) == 1
+		@media screen and (max-width: nth($args, 1))
+			@content
+	@if length($args) == 2
+		@media screen and (-webkit-min-device-pixel-ratio: nth($args, 1)) and (min-width: nth($args, 2))
+			@content
+
+=defaultBorder()
+	border: .1rem solid $light-gray-color
+	border-radius: .3rem

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import { fetchProducts, selectProductIds } from '../../../store/products/productsSlice'
 
@@ -11,16 +12,20 @@ const ProductsList = () => {
 
 	const location = useLocation()
 	const dispatch = useDispatch()
-	const orderedProductIds = useSelector(selectProductIds)
 
+	const orderedProductIds = useSelector(selectProductIds)
 	const productsStatus = useSelector(state => state.products.status)
 	const error = useSelector(state => state.products.error)
 
 	useEffect(() => {
 		if (productsStatus === 'idle') {
-			dispatch(fetchProducts(location.search || null))
+			dispatch(fetchProducts())
 		}
-	}, [ location, productsStatus, dispatch ])
+	}, [ productsStatus, dispatch ])
+
+	useEffect(() => {
+		dispatch(fetchProducts(location.search))
+	}, [ location, dispatch ])
 
 	let content
 
@@ -40,6 +45,10 @@ const ProductsList = () => {
 	return <section className={classes.layout}>
 		{content}
 	</section>
+}
+
+ProductsList.propTypes = {
+	query: PropTypes.string.isRequired
 }
 
 export default ProductsList

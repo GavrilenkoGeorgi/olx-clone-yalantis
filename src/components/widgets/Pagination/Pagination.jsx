@@ -4,6 +4,9 @@ import PropTypes from 'prop-types'
 
 import { Select } from '../../UI'
 
+import cx from 'classnames'
+import classes from './Pagination.module.sass'
+
 const Pagination = (props) => {
 
 	const { page: currentPage, perPage, totalItems } = useSelector(state => state.products)
@@ -17,6 +20,7 @@ const Pagination = (props) => {
 			pageButtons.push(
 				<button
 					key={page}
+					className={cx(classes.pageBtn, { [classes.currentPage]: page === currentPage })}
 					onClick={() => props.changePage(page)}
 					disabled={page === currentPage}
 				>{page}</button>
@@ -26,32 +30,39 @@ const Pagination = (props) => {
 		return pageButtons.slice(currentPage - 1, currentPage + 2)
 	}
 
-	const prevButton = <button
+	const prevButton = <button className={classes.navBtn}
 		onClick={() => props.changePage(currentPage - 1)}
 		disabled={currentPage - 1 === 0}
 	>
 		-
 	</button>
 
-	const nextButton = <button
+	const nextButton = <button className={classes.navBtn}
 		onClick={() => props.changePage(currentPage + 1)}
 		disabled={currentPage + 1 > numberOfPages}
 	>
 			+
 	</button>
 
-	return <>
-		<Select
-			name="perPage"
-			options={perPageOptions}
-			value={perPage}
-			defaultValue={perPage.toString()}
-			onChange={e => props.changePerPage(e.target.value)}
-		/>
-		{prevButton}
-		{buttons()}
-		{nextButton}
-	</>
+	return <section className={classes.paginationContainer}>
+		<div className={classes.perPageSelect}>
+			<div>
+				<Select
+					name="perPage"
+					options={perPageOptions}
+					value={perPage}
+					defaultValue={perPage.toString()}
+					onChange={e => props.changePerPage(e.target.value)}
+				/>
+				<span>products per page on {numberOfPages} pages.</span>
+			</div>
+		</div>
+		<div className={classes.buttons}>
+			{prevButton}
+			{buttons()}
+			{nextButton}
+		</div>
+	</section>
 
 }
 

@@ -36,7 +36,7 @@ const ProductsPage = () => {
 
 
 	const loadFilteredProducts = () => {
-		const current = new URLSearchParams(location.search) // ???
+		const current = new URLSearchParams(location.search)
 		if (search.toString() !== current.toString()) {
 			history.push({ search })
 		}
@@ -81,16 +81,16 @@ const ProductsPage = () => {
 
 	return <section className={classes.content}>
 		<h1>Products page</h1>
-		<button onClick={loadFilteredProducts}>Filter products</button>
 		<ProductFilter
 			filter={filter}
 			setFilter={setFilter}
+			applyFilter={loadFilteredProducts}
 		/>
 		<Pagination
 			changePage={changePage}
 			changePerPage={changePerPage}
 		/>
-		<ProductsList filter={filter}/>
+		<ProductsList filter={filter} query={history.location.search}/>
 	</section>
 }
 
