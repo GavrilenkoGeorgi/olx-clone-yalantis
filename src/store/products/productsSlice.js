@@ -18,10 +18,15 @@ const initialState = productsAdapter.getInitialState({
 	error: null
 })
 
-export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-	const response = await productsListApi.get(URIs.products)
-	return response.data
-})
+export const fetchProducts = createAsyncThunk('products/fetchProducts',
+	async (query) => {
+		let response
+		if (!query) // !
+			response = await productsListApi.get(URIs.products)
+		else
+			response = await productsListApi.get(`${URIs.products}${query}`)
+		return response.data
+	})
 
 const productsSlice = createSlice({
 	name: 'products',
@@ -39,7 +44,7 @@ const productsSlice = createSlice({
 			state.perPage = perPage
 			state.totalItems = totalItems
 
-			productsAdapter.upsertMany(state, items)
+			productsAdapter.setAll(state, items)
 		},
 		[fetchProducts.rejected]: (state, action) => {
 			state.status = 'failed'

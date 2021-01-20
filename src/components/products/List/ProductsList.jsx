@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 
 import { fetchProducts, selectProductIds } from '../../../store/products/productsSlice'
 
 import ProductCard from '../Product/ProductCard'
-
 import classes from './ProductsList.module.sass'
 
 const ProductsList = () => {
 
+	const location = useLocation()
 	const dispatch = useDispatch()
 	const orderedProductIds = useSelector(selectProductIds)
 
@@ -17,9 +18,9 @@ const ProductsList = () => {
 
 	useEffect(() => {
 		if (productsStatus === 'idle') {
-			dispatch(fetchProducts())
+			dispatch(fetchProducts(location.search || null))
 		}
-	}, [ productsStatus, dispatch ])
+	}, [ location, productsStatus, dispatch ])
 
 	let content
 
