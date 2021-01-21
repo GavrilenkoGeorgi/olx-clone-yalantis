@@ -3,7 +3,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { string } from 'prop-types'
 
-import { fetchProducts, selectProductIds } from '../../../store/products/productsSlice'
+import {
+	fetchProducts,
+	selectProductIds,
+	selectProductsStatus,
+	selectProductsError
+} from '../../../store/products/productsSlice'
 
 import ProductCard from '../Product/ProductCard'
 import classes from './ProductsList.module.sass'
@@ -14,8 +19,8 @@ const ProductsList = () => {
 	const dispatch = useDispatch()
 
 	const orderedProductIds = useSelector(selectProductIds)
-	const productsStatus = useSelector(state => state.products.status)
-	const error = useSelector(state => state.products.error)
+	const productsStatus = useSelector(selectProductsStatus)
+	const error = useSelector(selectProductsError)
 
 	useEffect(() => {
 		if (productsStatus === 'idle') {

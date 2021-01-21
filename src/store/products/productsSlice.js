@@ -57,3 +57,13 @@ export const {
 	selectById: selectProductById,
 	selectIds: selectProductIds
 } = productsAdapter.getSelectors(state => state.products)
+
+export const selectProductsStatus = state => state.products.status
+
+export const selectProductsError = state => state.products.error
+
+export const selectPaginationInfo = state => ({
+	currentPage: state.products.page,
+	perPage: state.products.perPage,
+	totalItems: state.products.totalItems
+})

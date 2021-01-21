@@ -77,3 +77,5 @@ export const {
 	selectById: selectItemById,
 	selectIds: selectItemsIds
 } = cartAdapter.getSelectors(state => state.cart)
+
+export const selectTotal = state => state.cart.total

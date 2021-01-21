@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { selectAllItems } from '../../../store/cart/cartSlice'
+import { selectAllItems, selectTotal } from '../../../store/cart/cartSlice'
 
 import { CartProductGroups } from '../../products'
 import { BackButton } from '../../widgets'
@@ -10,7 +10,7 @@ import classes from './CartPage.module.sass'
 const CartPage = () => {
 
 	const items = useSelector(selectAllItems)
-	const total = useSelector(state => state.cart.total)
+	const total = useSelector(selectTotal)
 
 	return <section className={classes.layout}>
 		<BackButton />

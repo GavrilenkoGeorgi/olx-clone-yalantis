@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { func } from 'prop-types'
 
+import { selectPaginationInfo } from '../../../store/products/productsSlice'
 import { Select, Button } from '../../UI'
 
 import cx from 'classnames'
@@ -9,7 +10,7 @@ import classes from './Pagination.module.sass'
 
 const Pagination = ({ changePages }) => {
 
-	const { page: currentPage, perPage, totalItems } = useSelector(state => state.products)
+	const { currentPage, perPage, totalItems } = useSelector(selectPaginationInfo)
 	const perPageOptions = [ '50', '25', '10' ]
 	const numberOfPages = Math.ceil(totalItems / perPage)
 
