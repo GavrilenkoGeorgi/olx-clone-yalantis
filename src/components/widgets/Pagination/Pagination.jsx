@@ -1,13 +1,13 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import PropTypes from 'prop-types'
+import { func } from 'prop-types'
 
-import { Select } from '../../UI'
+import { Select, Button } from '../../UI'
 
 import cx from 'classnames'
 import classes from './Pagination.module.sass'
 
-const Pagination = (props) => {
+const Pagination = ({ changePages }) => {
 
 	const { page: currentPage, perPage, totalItems } = useSelector(state => state.products)
 	const perPageOptions = [ '50', '25', '10' ]
@@ -18,31 +18,24 @@ const Pagination = (props) => {
 
 		for (let page = 1; page <= numberOfPages; page++) {
 			pageButtons.push(
-				<button
+				<Button
 					key={page}
 					className={cx(classes.pageBtn, { [classes.currentPage]: page === currentPage })}
-					onClick={() => props.changePage(page)}
+					clicked={() => changePages({ page })}
 					disabled={page === currentPage}
-				>{page}</button>
+					label={page.toString()}
+				/>
 			)
 		}
 
-		return pageButtons.slice(currentPage - 1, currentPage + 2)
+		if (currentPage > 3)
+			return pageButtons.slice(currentPage - 3, currentPage + 2)
+
+		return pageButtons.slice(0, currentPage + 2)
 	}
 
-	const prevButton = <button className={classes.navBtn}
-		onClick={() => props.changePage(currentPage - 1)}
-		disabled={currentPage - 1 === 0}
-	>
-		-
-	</button>
-
-	const nextButton = <button className={classes.navBtn}
-		onClick={() => props.changePage(currentPage + 1)}
-		disabled={currentPage + 1 > numberOfPages}
-	>
-			+
-	</button>
+	const isPrevButtonDisabled = () => currentPage - 1 === 0
+	const isNextButtonDisabled = () => currentPage + 1 > numberOfPages
 
 	return <section className={classes.paginationContainer}>
 		<div className={classes.perPageSelect}>
@@ -50,25 +43,30 @@ const Pagination = (props) => {
 				<Select
 					name="perPage"
 					options={perPageOptions}
-					value={perPage}
-					defaultValue={perPage.toString()}
-					onChange={e => props.changePerPage(e.target.value)}
+					value={perPage.toString()}
+					onChange={e => changePages({ perPage: e.target.value })}
 				/>
 				<span>products per page on {numberOfPages} pages.</span>
 			</div>
 		</div>
 		<div className={classes.buttons}>
-			{prevButton}
+			<Button className={classes.navBtn}
+				label="-"
+				clicked={() => changePages({ page: currentPage - 1 })}
+				disabled={isPrevButtonDisabled()}
+			/>
 			{buttons()}
-			{nextButton}
+			<Button className={classes.navBtn}
+				label="+"
+				clicked={() => changePages({ page: currentPage + 1 })}
+				disabled={isNextButtonDisabled()}
+			/>
 		</div>
 	</section>
-
 }
 
 Pagination.propTypes = {
-	changePage: PropTypes.func.isRequired,
-	changePerPage: PropTypes.func.isRequired
+	changePages: func.isRequired
 }
 
 export default Pagination
