@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import { object } from 'prop-types'
 
 import { MIN_PRICE, MAX_PRICE } from '../../../constants/constants'
 import { ProductsList } from '../../products'
@@ -94,7 +94,7 @@ const ProductsPage = () => {
 }
 
 ProductsPage.propTypes = {
-	location: PropTypes.object.isRequired
+	location: object.isRequired
 }
 
 export default ProductsPage

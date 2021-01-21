@@ -1,9 +1,10 @@
 import React from 'react'
 import { string, func } from 'prop-types'
 
-const Button = ({ label, clicked }) => {
+const Button = ({ label, clicked, ...props }) => {
 
 	return <button
+		{...props}
 		onClick={clicked}
 	>
 		{label}

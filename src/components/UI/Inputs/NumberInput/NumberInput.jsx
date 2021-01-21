@@ -1,15 +1,15 @@
 import React from 'react'
 import { string } from 'prop-types'
 
-const NumberInput = (props) => {
-
-	const { labelText, ...rest } = props
+const NumberInput = ({ labelText, ...props }) => {
 
 	return <>
-		<label htmlFor={props.id}>{labelText}</label>
+		<label htmlFor={props.id}>
+			{labelText}
+		</label>
 		<input
 			type="number"
-			{...rest}
+			{...props}
 		/>
 	</>
 }

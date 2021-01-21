@@ -17,13 +17,13 @@ const Header = () => {
 					to={routes.mainPage}
 					activeClassName={classes.active}
 				>
-					Main
+					MAIN
 				</NavLink>
 				<NavLink
 					to={routes.products}
 					activeClassName={classes.active}
 				>
-					Products
+					PRODUCTS
 				</NavLink>
 			</nav>
 			<CartWidget />

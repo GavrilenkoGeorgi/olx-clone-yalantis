@@ -1,15 +1,13 @@
 import React from 'react'
 import { string, func } from 'prop-types'
 
-const CheckBox = (props) => {
-
-	const { clicked, labelText, ...rest } = props
+const CheckBox = ({ clicked, labelText, ...props }) => {
 
 	return <>
 		<input
 			type="checkbox"
 			onChange={clicked}
-			{...rest}
+			{...props}
 		/>
 		<label htmlFor={props.id}>
 			{labelText}

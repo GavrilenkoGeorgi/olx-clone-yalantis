@@ -9,8 +9,7 @@ import {
 	itemQuantityRemoved
 } from '../../../../store/cart/cartSlice'
 
-import Button from '../../../UI/Button/Button'
-import NumberInput from '../../../UI/Inputs/NumberInput/NumberInput'
+import { Button, NumberInput } from '../../../UI'
 import classes from './ProductGroup.module.sass'
 
 const ProductGroup = ({ product }) => {
@@ -51,7 +50,7 @@ const ProductGroup = ({ product }) => {
 			<p>Total: <span>{memoizedTotal}</span>
 			</p>
 		</div>
-		<div>
+		<div className={classes.quantityControls}>
 			<Button label="+"
 				clicked={handleAddItem}
 			/>
@@ -62,9 +61,9 @@ const ProductGroup = ({ product }) => {
 				clicked={handleRemoveAllItems}
 			/>
 		</div>
-		<div>
+		<div className={classes.quantityInput}>
 			<NumberInput
-				labelText="Remove this many pcs:"
+				labelText="Remove:"
 				id="pcs"
 				name="pcs"
 				min="1"

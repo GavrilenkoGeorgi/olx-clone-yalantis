@@ -1,14 +1,12 @@
 import React from 'react'
 import { string, arrayOf, func } from 'prop-types'
 
-export const Select = (props) => {
+export const Select = ({ options, ...props }) => {
 
 	return <select
-		name={props.name}
-		onChange={props.onChange}
-		value={props.defaultValue}
+		{ ...props }
 	>
-		{props.options.map(option => (
+		{options.map(option => (
 			<option
 				key={option}
 				value={option}
@@ -23,7 +21,7 @@ Select.propTypes = {
 	name: string.isRequired,
 	options: arrayOf(string).isRequired,
 	onChange: func.isRequired,
-	defaultValue: string.isRequired
+	value: string.isRequired
 }
 
 export default Select

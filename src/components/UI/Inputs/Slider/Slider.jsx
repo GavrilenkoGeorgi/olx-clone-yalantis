@@ -1,13 +1,11 @@
 import React from 'react'
 import { string, func } from 'prop-types'
 
-const Slider = props => {
-
-	const { labelText, ...rest } = props
+const Slider = ({ labelText, ...props }) => {
 
 	return <>
 		<input type="range"
-			{...rest}
+			{...props}
 		/>
 		<label htmlFor={props.id}>
 			{labelText}

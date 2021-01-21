@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import { string } from 'prop-types'
 
 import { fetchProducts, selectProductIds } from '../../../store/products/productsSlice'
 
@@ -27,7 +27,7 @@ const ProductsList = () => {
 		dispatch(fetchProducts(location.search))
 	}, [ location, dispatch ])
 
-	let content
+	let content = []
 
 	if (productsStatus === 'loading') {
 		<div>Loading...</div>
@@ -42,13 +42,15 @@ const ProductsList = () => {
 		content = <div>{error}</div>
 	}
 
+	const nothingFoundMessage = <h3>No products found with given params.</h3>
+
 	return <section className={classes.layout}>
-		{content}
+		{content.length ? content : nothingFoundMessage}
 	</section>
 }
 
 ProductsList.propTypes = {
-	query: PropTypes.string.isRequired
+	query: string.isRequired
 }
 
 export default ProductsList

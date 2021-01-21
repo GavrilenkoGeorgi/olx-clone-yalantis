@@ -6,11 +6,9 @@ import useAxios from '../../../hooks/useAxios'
 import { productsListApi } from '../../../api/productsApi'
 import URIs from '../../../api/URIs'
 
-import CheckBox from '../../UI/CheckBox/CheckBox'
-import { Slider } from '../../UI'
+import { Button, Slider, CheckBox } from '../../UI'
 import { MAX_PRICE, MIN_PRICE } from '../../../constants/constants'
 
-import { Button } from '../../UI'
 import classes from './ProductFilter.module.sass'
 
 const ProductFilter = ({ filter, setFilter, applyFilter }) => {
@@ -44,8 +42,8 @@ const ProductFilter = ({ filter, setFilter, applyFilter }) => {
 		}
 	}
 
-	const adjustFilter = (e) => {
-		setFilter(prev => ({ ...prev, [e.target.name]: e.target.value }))
+	const adjustFilter = ({ name, value }) => {
+		setFilter(prev => ({ ...prev, [name]: value }))
 	}
 
 	const sliders = <div className={classes.slidersContainer}>
@@ -56,7 +54,7 @@ const ProductFilter = ({ filter, setFilter, applyFilter }) => {
 			min={MIN_PRICE}
 			max={filter.maxPrice}
 			value={filter.minPrice || 0}
-			onChange={e => adjustFilter(e)}
+			onChange={e => adjustFilter(e.target)}
 		/>
 		<Slider
 			id="maxPrice"
@@ -65,7 +63,7 @@ const ProductFilter = ({ filter, setFilter, applyFilter }) => {
 			min={filter.minPrice}
 			max={MAX_PRICE}
 			value={filter.maxPrice || 0}
-			onChange={e => adjustFilter(e)}
+			onChange={e => adjustFilter(e.target)}
 		/>
 	</div>
 
