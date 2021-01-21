@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import { string } from 'prop-types'
 
 import {
 	fetchProducts,
@@ -52,10 +51,6 @@ const ProductsList = () => {
 	return <section className={classes.layout}>
 		{content.length ? content : nothingFoundMessage}
 	</section>
-}
-
-ProductsList.propTypes = {
-	query: string.isRequired
 }
 
 export default ProductsList

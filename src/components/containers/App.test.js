@@ -1,11 +1,31 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
+
 import App from './App'
+import products from '../../fixtures/products.json'
+
+const [ product ] = products.items
+const mockStore = configureStore([])
 
 describe('App main view', () => {
+	let store
 
 	beforeEach(() => {
-		render(<App />)
+		store = mockStore({
+			cart: {
+				ids: [ product.id ],
+				entities: { [ product.id ]: product },
+				total: product.price
+			}
+		})
+
+		render(
+			<Provider store={store}>
+				<App />
+			</Provider>
+		)
 	})
 
 	it('renders correctly', () => {
@@ -17,13 +37,13 @@ describe('App main view', () => {
 	})
 
 	it('navbar is present', () => {
-		const mainPageLink = screen.getByText('Main')
+		const mainPageLink = screen.getByText('MAIN')
 
 		expect(mainPageLink).toBeInTheDocument()
 		expect(mainPageLink).toHaveClass('active')
 		expect(mainPageLink).toHaveAttribute('href', '/')
 
-		const productsPageLink = screen.getByText('Products')
+		const productsPageLink = screen.getByText('PRODUCTS')
 		expect(productsPageLink).toHaveAttribute('href', '/products')
 	})
 

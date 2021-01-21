@@ -10,7 +10,8 @@
 			"price": 143,
 			"origin": "asia",
 			"createdAt": "2020-12-22T17:28:32.126Z",
-			"updatedAt": "2020-12-22T17:28:32.126Z"
+			"updatedAt": "2020-12-22T17:28:32.126Z",
+			"quantity": 1
 		},
 		{
 			"isEditable": false,
@@ -19,7 +20,8 @@
 			"price": 157,
 			"origin": "usa",
 			"createdAt": "2020-12-22T17:28:32.195Z",
-			"updatedAt": "2020-12-22T17:28:32.195Z"
+			"updatedAt": "2020-12-22T17:28:32.195Z",
+			"quantity": 1
 		},
 		{
 			"isEditable": false,
@@ -28,7 +30,8 @@
 			"price": 831,
 			"origin": "usa",
 			"createdAt": "2020-12-22T17:28:32.215Z",
-			"updatedAt": "2020-12-22T17:28:32.215Z"
+			"updatedAt": "2020-12-22T17:28:32.215Z",
+			"quantity": 1
 		}
 	]
 }

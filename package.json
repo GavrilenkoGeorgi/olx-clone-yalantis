@@ -1,6 +1,6 @@
 {
 	"name": "olx-clone-yalantis",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "Yalantis OLX clone homework",
 	"private": true,
 	"dependencies": {
@@ -58,6 +58,8 @@
 		"@testing-library/jest-dom": "^5.11.6",
 		"@testing-library/react": "^11.2.2",
 		"@testing-library/user-event": "^12.6.0",
-		"msw": "^0.24.4"
+		"msw": "^0.24.4",
+		"redux-mock-store": "^1.5.4",
+		"redux-thunk": "^2.3.0"
 	}
 }

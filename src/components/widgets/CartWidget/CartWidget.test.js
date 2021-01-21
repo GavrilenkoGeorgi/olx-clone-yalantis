@@ -1,45 +1,48 @@
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
-
-import { CartContext } from '../../../context/CartContext'
-import { calcTotal } from '../../../utils'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
 
 import CartWidget from './CartWidget'
 import products from '../../../fixtures/products.json'
 
-const setItems = jest.fn()
+const [ product ] = products.items
+const mockStore = configureStore([])
 
 describe('<CartWidget /> component', () => {
 	let view
+	let store
 
 	beforeEach(() => {
+		store = mockStore({
+			cart: {
+				ids: [ product.id ],
+				entities: { [ product.id ]: product },
+				total: product.price
+			}
+		})
+
 		view = render(
-			<CartContext.Provider value={{ items: [], setItems }}>
+			<Provider store={store}>
 				<BrowserRouter>
 					<CartWidget />
 				</BrowserRouter>
-			</CartContext.Provider>
+			</Provider>
 		)
 	})
 
-	it('renders empty state correctly', () => {
-		expect(screen.getByText('0')).toBeInTheDocument()
-		expect(screen.getByText('0').closest('a')).toHaveAttribute('href', '/cart')
-	})
-
-	it('renders cart total', () => {
+	it('renders correctly', () => {
 		const { rerender } = view
-		const total = calcTotal(products.items)
 
 		rerender(
-			<CartContext.Provider value={{ items: products.items, setItems }}>
+			<Provider store={store}>
 				<BrowserRouter>
 					<CartWidget />
 				</BrowserRouter>
-			</CartContext.Provider>
+			</Provider>
 		)
 
-		expect(screen.getByText(total)).toBeInTheDocument()
+		expect(screen.getByText(product.price)).toBeInTheDocument()
 	})
 })

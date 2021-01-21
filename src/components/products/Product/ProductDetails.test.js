@@ -1,14 +1,18 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
 import { render, screen, waitFor } from '@testing-library/react'
-import Routes from '../../routes/Routes'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
 
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
+
+import Routes from '../../routes/Routes'
 import products from '../../../fixtures/products.json'
 import routes from '../../../fixtures/apiRoutes'
 
 const [ product ] = products.items
+const mockStore = configureStore([])
 
 const server = setupServer(
 	rest.get(`${routes.products}/${product.id}`,
@@ -21,19 +25,30 @@ const server = setupServer(
 )
 
 describe('<ProductDetails /> component', () => {
+	let store
+
 	beforeAll(() => server.listen())
 	afterEach(() => server.resetHandlers())
 	afterAll(() => server.close())
 
 	beforeEach(() => {
+		store = mockStore({
+			products: {
+				ids: [ product.id ],
+				entities: { [ product.id ]: product }
+			}
+		})
+
 		render(
-			<MemoryRouter
-				initialEntries={
-					[ `/products/${product.id}` ]}
-				initialIndex={0}
-			>
-				<Routes />
-			</MemoryRouter>
+			<Provider store={store}>
+				<MemoryRouter
+					initialEntries={
+						[ `/products/${product.id}` ]}
+					initialIndex={0}
+				>
+					<Routes />
+				</MemoryRouter>
+			</Provider>
 		)
 	})
 
