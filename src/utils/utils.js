@@ -16,7 +16,7 @@ export const buildQuery = params => {
 	if (!params || !Array.isArray(params))
 		throw new Error('(buildQuery): Can\'t build query string, check input params.')
 
-	let queryString = '?'
+	let queryString = ''
 	const queryParams = []
 
 	for (let { param, value } of params)

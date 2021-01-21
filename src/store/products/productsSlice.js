@@ -20,11 +20,8 @@ const initialState = productsAdapter.getInitialState({
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts',
 	async (query) => {
-		let response
-		if (!query) // !
-			response = await productsListApi.get(URIs.products)
-		else
-			response = await productsListApi.get(`${URIs.products}${query}`)
+		query ? query : ''
+		const response = await productsListApi.get(URIs.products + query.toString())
 		return response.data
 	})
 
