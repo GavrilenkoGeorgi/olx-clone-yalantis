@@ -1,36 +1,48 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { ErrorBoundary } from 'react-error-boundary'
 import { children } from '../../propTypes'
 
 import { productsListApi } from '../../../api/productsApi'
-import ErrorFallback from '../ErrorBoundary/ErrorFallback'
+import {
+	fetchingState,
+	selectIsFetching,
+	errorAdded,
+	errorCleared
+} from '../../../store/notifications/notificationsSlice'
+import { DEFAULT_NOTIFICATION_TIMEOUT } from '../../../constants/settings'
 
+import ErrorFallback from '../ErrorBoundary/ErrorFallback'
 import { Loader, Notification } from '../../widgets'
 
 const AppContainer = ({ children }) => {
 
+	const dispatch = useDispatch()
+	const fetching = useSelector(selectIsFetching)
+
 	const requestIsSuccessful = config => {
-		setIsLoading(true)
+		dispatch(fetchingState(true))
 		return config
 	}
 
 	const reponseIsSuccessful = response => {
-		setIsLoading(false)
+		dispatch(fetchingState(false))
 		return response
 	}
 
 	const handleError = error => {
-		console.error(error.message)
-		setIsLoading(false)
-		setNotification({ message: error.message, variant: 'error' })
+		dispatch(errorAdded(error.message))
+		setTimeout(() => {
+			dispatch(errorCleared())
+		}, DEFAULT_NOTIFICATION_TIMEOUT)
+		dispatch(fetchingState(false))
 		return Promise.reject(error)
 	}
 
 	productsListApi.interceptors.request.use(requestIsSuccessful, handleError)
 	productsListApi.interceptors.response.use(reponseIsSuccessful, handleError)
 
-	const [ isLoading, setIsLoading ] = useState(false)
-	const showLoader = () => isLoading ? <Loader /> : null
+	const showLoader = () => fetching ? <Loader /> : null
 
 	const emptyNotification = { message: '', variant: '' }
 	const [ notification, setNotification ] = useState(emptyNotification)

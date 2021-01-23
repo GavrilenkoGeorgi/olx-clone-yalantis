@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+
 import { Button, PortalContainer, PortalLayout } from '../../../UI'
+import CreateProductForm from './CreateProductForm'
 
 const FormPortalButton = () => {
 
@@ -19,7 +21,7 @@ const FormPortalButton = () => {
 				title="Create new product"
 				close={() => setOn(!isOn)}
 			>
-				CREATE PRODUCT FORM
+				<CreateProductForm />
 			</PortalLayout>
 		</PortalContainer>
 	</>
