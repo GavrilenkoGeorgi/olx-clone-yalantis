@@ -13,7 +13,7 @@ const Button = ({ label, clicked, ...props }) => {
 
 Button.propTypes = {
 	label: string.isRequired,
-	clicked: func.isRequired
+	clicked: func
 }
 
 export default Button

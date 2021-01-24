@@ -8,7 +8,8 @@ import URIs from '../../../api/URIs'
 import { selectIsFetching, messageAdded } from '../../../store/notifications/notificationsSlice'
 import { productSchema, productShape } from './createProductSchema'
 
-import { Input, Select } from '../../UI'
+import { Input, Select, Button } from '../../UI'
+import classes from './CreateProductForm.module.sass'
 
 const CreateProductForm = () => {
 
@@ -22,6 +23,7 @@ const CreateProductForm = () => {
 	}, [ originsData ])
 
 	const createProduct = async (product, resetForm) => {
+		console.log('Sending this', product)
 		const data = {
 			product: {
 				...product,
@@ -48,7 +50,9 @@ const CreateProductForm = () => {
 	})
 
 	return (
-		<fieldset disabled={fetching}>
+		<fieldset
+			className={classes.fieldset}
+			disabled={fetching}>
 			<form
 				onSubmit={formik.handleSubmit}
 				onReset={formik.handleReset}
@@ -89,8 +93,10 @@ const CreateProductForm = () => {
 					isInvalid={formik.touched.origin && !!formik.errors.origin}
 					error={formik.errors.origin}
 				/>
-				<button type="submit">Submit</button>
-				<button type="reset">Clear</button>
+				<div className={classes.buttonContainer}>
+					<Button type="submit" label="Submit" />
+					<Button type="reset" label="Clear" />
+				</div>
 			</form>
 		</fieldset>
 	)

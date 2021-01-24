@@ -1,7 +1,7 @@
 import React from 'react'
 import { string, bool } from 'prop-types'
 
-
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import cx from 'classnames'
 import classes from './Input.module.sass'
 
@@ -17,7 +17,7 @@ const Input = ({ error, id, label, isValid, isInvalid, ...props }) => {
 		<input className={inputClasses}
 			{ ...props }
 		/>
-		{error && <p>{error}</p>}
+		{error && <ErrorMessage error={error} />}
 	</div>
 }
 

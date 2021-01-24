@@ -1,17 +1,18 @@
 import React from 'react'
 import { bool, string, arrayOf, func } from 'prop-types'
 
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import cx from 'classnames'
 import classes from './Select.module.sass'
 
 export const Select = ({ error, defaultOption, options, isValid, isInvalid, ...props }) => {
 
-	const selectClasses = cx(classes.input, {
+	const selectClasses = cx(classes.select, {
 		[classes.invalid]: isInvalid,
 		[classes.valid]: isValid
 	})
 
-	return <>
+	return <div className={classes.container}>
 		<select className={selectClasses}
 			{ ...props }
 		>
@@ -32,8 +33,8 @@ export const Select = ({ error, defaultOption, options, isValid, isInvalid, ...p
 				</option>
 			))}
 		</select>
-		{error && <p>{error}</p>}
-	</>
+		{error && <ErrorMessage error={error} />}
+	</div>
 }
 
 Select.propTypes = {

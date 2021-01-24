@@ -7,6 +7,7 @@ import {
 	notificationsCleared
 } from '../../../store/notifications/notificationsSlice'
 
+import { Button } from '../../UI'
 import cx from 'classnames'
 import classes from './Notification.module.sass'
 
@@ -33,7 +34,9 @@ const Notification = () => {
 	return <div className={containerClasses}>
 		<div className={notificationClasses}>
 			<p>{message} {error}</p>
-			<button onClick={() => closeNotification()}>Close</button>
+			<Button className={classes.btn}
+				label="Close" clicked={() => closeNotification()}
+			/>
 		</div>
 	</div>
 }

@@ -11,11 +11,13 @@ export const productSchema = origins => {
 		name: string()
 			.min(3, 'No less than three letters.')
 			.max(20, 'No more than twenty letters.')
-			.required('Name is required'),
+			.required(),
 		price: number()
 			.typeError('Have to be a numbah.')
 			.positive()
-			.required('Required'),
-		origin: string().oneOf(origins, 'Please, enter valid origin.')
+			.required(),
+		origin: string()
+			.oneOf(origins, 'Please, enter valid origin.')
+			.required()
 	})
 }

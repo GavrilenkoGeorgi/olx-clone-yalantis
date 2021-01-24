@@ -24,7 +24,7 @@ const PortalLayout = ({ title, children, close }) => {
 			<div className={classes.footer}>
 				<Button
 					className={classes.closeBtn}
-					label="Cancel"
+					label="CLOSE"
 					clicked={close}
 				/>
 			</div>

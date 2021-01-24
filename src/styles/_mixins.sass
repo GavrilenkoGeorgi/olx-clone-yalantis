@@ -26,6 +26,17 @@
 		@media screen and (-webkit-min-device-pixel-ratio: nth($args, 1)) and (min-width: nth($args, 2))
 			@content
 
+=defaultBorderRadius()
+	border-radius: .3rem
+
 =defaultBorder()
 	border: .1rem solid $light-gray-color
-	border-radius: .3rem
+	+defaultBorderRadius()
+
+=formSuccessBorder()
+	border: .1rem solid $success-color
+	+defaultBorderRadius()
+
+=formErrorBorder()
+	border: .1rem solid $error-color
+	+defaultBorderRadius()

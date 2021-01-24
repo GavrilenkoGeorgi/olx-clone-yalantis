@@ -18,7 +18,10 @@
 	justify-content: space-between
 	align-items: center
 	transition: transform .3s ease-out
-	border: .1rem solid gray
+	padding: 2rem
+
+.btn
+	padding: .4rem
 
 .open
 	transform: translateY(0)
@@ -27,12 +30,12 @@
 	transform: translateY(-100%)
 
 .error
+	color: $error-color
 	border: .1rem solid $error-color
-	background-color: $error-light-color
 
 .message
-	border: .1rem solid blue
-	background-color: green
+	border: .1rem solid $success-color
+	color: $success-color
 
 .controls
 	text-align: right
