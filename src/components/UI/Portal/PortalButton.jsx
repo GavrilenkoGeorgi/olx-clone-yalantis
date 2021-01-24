@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
+import { string, object } from 'prop-types'
 
 import { Button, PortalContainer, PortalLayout } from '../../UI'
-import CreateProductForm from './CreateProductForm'
 
-const FormPortalButton = () => {
+const PortalButton = ({ title, btnLabel, children }) => {
 
 	const [ isOn, setOn ] = useState(false)
 
 	return <>
 		<Button
-			label="CREATE"
+			label={btnLabel}
 			clicked={() => {
 				setOn(!isOn)
 			}}
@@ -18,13 +18,19 @@ const FormPortalButton = () => {
 		</Button>
 		<PortalContainer isOn={isOn}>
 			<PortalLayout
-				title="Create new product"
+				title={title}
 				close={() => setOn(!isOn)}
 			>
-				<CreateProductForm />
+				{children}
 			</PortalLayout>
 		</PortalContainer>
 	</>
 }
 
-export default FormPortalButton
+PortalButton.propTypes = {
+	title: string.isRequired,
+	btnLabel: string.isRequired,
+	children: object
+}
+
+export default PortalButton

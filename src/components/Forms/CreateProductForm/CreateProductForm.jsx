@@ -44,7 +44,7 @@ const CreateProductForm = () => {
 		validationSchema: productSchema(origins),
 		onSubmit: (values, { resetForm }) => {
 			createProduct(values, resetForm)
-		},
+		}
 	})
 
 	return (

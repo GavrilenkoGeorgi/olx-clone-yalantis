@@ -1,1 +1,1 @@
-export { default as ProductFormButton } from './CreateProductForm/FormPortalButton'
+export { default as CreateProductForm } from './CreateProductForm/CreateProductForm'
