@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Button, PortalContainer, PortalLayout } from '../../../UI'
+import { Button, PortalContainer, PortalLayout } from '../../UI'
 import CreateProductForm from './CreateProductForm'
 
 const FormPortalButton = () => {

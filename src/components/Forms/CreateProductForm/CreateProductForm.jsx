@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
 
-import useOrigins from '../../../../hooks/useOrigins'
-import { productsListApi } from '../../../../api/productsApi'
-import URIs from '../../../../api/URIs'
-import { selectIsFetching } from '../../../../store/notifications/notificationsSlice'
+import useOrigins from '../../../hooks/useOrigins'
+import { productsListApi } from '../../../api/productsApi'
+import URIs from '../../../api/URIs'
+import { selectIsFetching, messageAdded } from '../../../store/notifications/notificationsSlice'
 import { productSchema, productShape } from './createProductSchema'
 
-import { Input, Select } from '../../../UI'
+import { Input, Select } from '../../UI'
 
 const CreateProductForm = () => {
 
+	const dispatch = useDispatch()
 	const originsData = useOrigins()
 	const fetching = useSelector(selectIsFetching)
-
-	const [ message, setMessage ] = useState('')
 	const [ origins, setOriginOptions ] = useState([ '' ])
 
 	useEffect(() => {
@@ -33,8 +32,7 @@ const CreateProductForm = () => {
 		const response = await productsListApi.post(URIs.products, data)
 		if (response) {
 			resetForm()
-			setMessage('Product saved!')
-			setTimeout(() => setMessage(''), 2000)
+			dispatch(messageAdded('Product saved!'))
 		}
 	}
 
@@ -51,7 +49,6 @@ const CreateProductForm = () => {
 
 	return (
 		<fieldset disabled={fetching}>
-			{message && <p>{message}</p>}
 			<form
 				onSubmit={formik.handleSubmit}
 				onReset={formik.handleReset}

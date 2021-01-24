@@ -3,7 +3,7 @@ import { useRouteMatch, NavLink } from 'react-router-dom'
 import routes from '../../routes/routesConstants'
 
 import { CartWidget } from '../../widgets'
-import { FormPortalButton } from '../../UI'
+import { ProductFormButton } from '../../Forms'
 import classes from './Header.module.sass'
 
 const Header = () => {
@@ -27,7 +27,7 @@ const Header = () => {
 					PRODUCTS
 				</NavLink>
 			</nav>
-			<FormPortalButton />
+			<ProductFormButton />
 			<CartWidget />
 		</header>
 	}

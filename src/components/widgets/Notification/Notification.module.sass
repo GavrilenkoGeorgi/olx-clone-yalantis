@@ -2,15 +2,37 @@
 @import 'styles/mixins'
 
 .container
-	background-color: #00000050
-	+notificationContainerLayout()
+	z-index: 999
+	position: fixed
+	top: 0
+	transition: transform 1s ease-out
+	width: 100%
 
 .notification
+	height: 2rem
 	background-color: #fff
-	width: 15rem
-	border-radius: .3rem
+	margin: 1rem
 	padding: 1rem
+	border-radius: .3rem
+	display: flex
+	justify-content: space-between
+	align-items: center
+	transition: transform .3s ease-out
+	border: .1rem solid gray
+
+.open
+	transform: translateY(0)
+
+.close
+	transform: translateY(-100%)
+
+.error
+	border: .1rem solid $error-color
+	background-color: $error-light-color
+
+.message
 	border: .1rem solid blue
+	background-color: green
 
 .controls
 	text-align: right
@@ -22,7 +44,3 @@
 		&:hover
 			background-color: $secondary-light-color
 			cursor: pointer
-
-.error
-	border: .1rem solid $error-color
-	background-color: $error-light-color

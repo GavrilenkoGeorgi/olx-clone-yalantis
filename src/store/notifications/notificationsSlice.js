@@ -25,6 +25,10 @@ const notificationsSlice = createSlice({
 		errorCleared(state) {
 			state.error = ''
 		},
+		notificationsCleared(state) {
+			state.message = ''
+			state.error = ''
+		}
 	}
 })
 
@@ -33,7 +37,8 @@ export const {
 	errorCleared,
 	messageAdded,
 	messageCleared,
-	fetchingState
+	fetchingState,
+	notificationsCleared
 } = notificationsSlice.actions
 
 export default notificationsSlice.reducer
