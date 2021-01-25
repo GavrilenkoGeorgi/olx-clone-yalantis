@@ -23,7 +23,6 @@ const CreateProductForm = () => {
 	}, [ originsData ])
 
 	const createProduct = async (product, resetForm) => {
-		console.log('Sending this', product)
 		const data = {
 			product: {
 				...product,
