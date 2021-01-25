@@ -10,8 +10,9 @@ import classes from './Routes.module.sass'
 const Routes = () => (
 	<section className={classes.content}>
 		<Switch>
+			<Route exact path={routes.products} component={ProductsPage} />
+			<Route path={routes.productsCreated} component={ProductsPage} />
 			<Route path={routes.productDetails} component={ProductDetails} />
-			<Route path={routes.products} component={ProductsPage} />
 			<Route path={routes.cart} component={CartPage} />
 			<Route exact path={routes.mainPage} component={MainPage} />
 			<Route path="*" component={FourOFour} />

@@ -5,6 +5,9 @@ export const productsListApi = axios.create({
 	headers: {
 		post: {
 			Authorization: process.env.REACT_APP_AUTH_TOKEN
+		},
+		get: {
+			Authorization: process.env.REACT_APP_AUTH_TOKEN
 		}
 	}
 })

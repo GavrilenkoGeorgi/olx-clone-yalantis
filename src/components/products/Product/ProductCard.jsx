@@ -14,7 +14,7 @@ const ProductCard = ({ productId }) => {
 	const product = useSelector(state => selectProductById(state, productId))
 
 	const DetailsLink = () =>
-		<Link to={`${routes.products}/${product.id}`}>Details...</Link>
+		<Link to={`${routes.product}/${product.id}`}>Details...</Link>
 
 	const MemodDetailsLink = React.memo(DetailsLink)
 

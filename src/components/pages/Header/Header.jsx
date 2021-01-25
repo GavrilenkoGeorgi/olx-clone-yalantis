@@ -22,10 +22,17 @@ const Header = () => {
 					MAIN
 				</NavLink>
 				<NavLink
+					exact
 					to={routes.products}
 					activeClassName={classes.active}
 				>
 					PRODUCTS
+				</NavLink>
+				<NavLink
+					to={routes.productsCreated}
+					activeClassName={classes.active}
+				>
+					CREATED PRODS
 				</NavLink>
 			</nav>
 			<PortalButton
