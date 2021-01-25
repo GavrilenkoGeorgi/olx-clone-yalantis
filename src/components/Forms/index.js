@@ -1,2 +1,2 @@
-export { default as EditFormContainer } from './CreateProductForm/EditFormContainer'
-export { default as CreateFormContainer } from './CreateProductForm/CreateFormContainer'
+export { default as EditFormContainer } from './ProductForm/EditFormContainer'
+export { default as CreateFormContainer } from './ProductForm/CreateFormContainer'
