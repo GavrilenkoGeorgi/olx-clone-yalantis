@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useFormik } from 'formik'
+import { func } from 'prop-types'
+import { productType } from '../../propTypes'
 
 import useOrigins from '../../../hooks/useOrigins'
-import { productsListApi } from '../../../api/productsApi'
-import URIs from '../../../api/URIs'
-import { selectIsFetching, messageAdded } from '../../../store/notifications/notificationsSlice'
-import { productSchema, productShape } from './createProductSchema'
+import { selectIsFetching } from '../../../store/notifications/notificationsSlice'
+import { productSchema, productShape } from './productSchema'
 
 import { Input, Select, Button } from '../../UI'
-import classes from './CreateProductForm.module.sass'
+import classes from './ProductForm.module.sass'
 
-const CreateProductForm = () => {
+const ProductForm = ({ handleProduct, product }) => {
 
-	const dispatch = useDispatch()
 	const originsData = useOrigins()
 	const fetching = useSelector(selectIsFetching)
 	const [ origins, setOriginOptions ] = useState([ '' ])
@@ -22,29 +21,14 @@ const CreateProductForm = () => {
 		setOriginOptions([ ...originsData.map(origin => origin.value) ])
 	}, [ originsData ])
 
-	const createProduct = async (product, resetForm) => {
-		const data = {
-			product: {
-				...product,
-				price: Number(product.price)
-			}
-		}
-
-		const response = await productsListApi.post(URIs.products, data)
-		if (response) {
-			resetForm()
-			dispatch(messageAdded('Product saved!'))
-		}
-	}
-
 	const formik = useFormik({
 		initialValues: {
-			...productShape
+			...productShape(product)
 		},
 		validateOnBlur: true,
 		validationSchema: productSchema(origins),
 		onSubmit: (values, { resetForm }) => {
-			createProduct(values, resetForm)
+			handleProduct(values, resetForm)
 		}
 	})
 
@@ -101,4 +85,13 @@ const CreateProductForm = () => {
 	)
 }
 
-export default CreateProductForm
+ProductForm.propTypes = {
+	product: productType,
+	handleProduct: func.isRequired,
+}
+
+ProductForm.defaultProps = {
+	product: null
+}
+
+export default ProductForm

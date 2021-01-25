@@ -1,9 +1,11 @@
 import { object, string, number } from 'yup'
 
-export const productShape = {
-	name: '',
-	price: 0,
-	origin: ''
+export const productShape = product => {
+	return {
+		name: product?.name || '',
+		price: product?.price || 0,
+		origin: product?.origin || ''
+	}
 }
 
 export const productSchema = origins => {

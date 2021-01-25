@@ -3,7 +3,7 @@ import { useRouteMatch, NavLink } from 'react-router-dom'
 import routes from '../../routes/routesConstants'
 
 import { CartWidget } from '../../widgets'
-import { CreateProductForm } from '../../Forms'
+import { CreateFormContainer } from '../../Forms'
 import { PortalButton } from '../../UI'
 import classes from './Header.module.sass'
 
@@ -32,14 +32,14 @@ const Header = () => {
 					to={routes.productsCreated}
 					activeClassName={classes.active}
 				>
-					CREATED PRODS
+					MY PRODUCTS
 				</NavLink>
 			</nav>
 			<PortalButton
 				title="Create new product"
 				btnLabel="CREATE"
 			>
-				<CreateProductForm />
+				<CreateFormContainer />
 			</PortalButton>
 			<CartWidget />
 		</header>

@@ -8,6 +8,9 @@ export const productsListApi = axios.create({
 		},
 		get: {
 			Authorization: process.env.REACT_APP_AUTH_TOKEN
+		},
+		patch: {
+			Authorization: process.env.REACT_APP_AUTH_TOKEN
 		}
 	}
 })

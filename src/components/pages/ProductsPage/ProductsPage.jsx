@@ -1,7 +1,9 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import { useQuery } from '../../../hooks/useQuery'
 import { MIN_PRICE, MAX_PRICE } from '../../../constants/constants'
+
 import { ProductsList } from '../../products'
 import { ProductFilter, Pagination } from '../../widgets'
 import classes from './ProductsPage.module.sass'
@@ -9,9 +11,7 @@ import classes from './ProductsPage.module.sass'
 const ProductsPage = () => {
 
 	const history = useHistory()
-	const currentQuery =
-		useMemo(() => new URLSearchParams(history.location.search),
-			[ history.location.search ])
+	let currentQuery = useQuery()
 
 	const filterSettings = {
 		origins: new Set(currentQuery.has('origins') && currentQuery.get('origins').split(',') || []),
