@@ -25,8 +25,6 @@ const OrdersList = () => {
 		}
 	}, [ ordersStatus, dispatch ])
 
-	console.log('[Orders list]', orders)
-
 	let content
 
 	if (ordersStatus === 'loading') {

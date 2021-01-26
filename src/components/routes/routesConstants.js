@@ -5,7 +5,8 @@ const routes = {
 	product: '/product',
 	productDetails: '/product/:id',
 	cart: '/cart',
-	orders: '/orders'
+	orders: '/orders',
+	order: '/orders/:id'
 }
 
 export default routes

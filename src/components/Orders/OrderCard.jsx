@@ -8,7 +8,6 @@ import Order from './Order'
 
 const OrderCard = ({ id }) => {
 
-	console.log('Order Card', id)
 	const order = useSelector(state => selectOrderById(state, id))
 
 	if (!order) return <p>Order not found: {id}</p>

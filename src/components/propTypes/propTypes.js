@@ -29,6 +29,6 @@ export const orderPiece = shape({
 
 export const orderType = shape({
 	id: string.isRequired,
-	createdAt: string.isRequired,
+	createdAt: string,
 	pieces: arrayOf(orderPiece)
 })

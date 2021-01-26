@@ -1,12 +1,14 @@
 import React from 'react'
-import { orderType } from '../propTypes/'
+import { orderType } from '../propTypes'
+
+import { Link } from 'react-router-dom'
+import routes from '../routes/routesConstants'
 
 const Order = ({ order }) => {
 
-	console.log('[Order]', order)
-
 	return <div>
-		Created at {order.createdAt}
+		<p>Created at {order.createdAt}</p>
+		<Link to={`${routes.orders}/${order.id}`}>{order.id}</Link>
 	</div>
 }
 
