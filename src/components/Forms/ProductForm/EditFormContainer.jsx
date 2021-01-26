@@ -7,26 +7,28 @@ import ProductForm from './ProductForm'
 import { productsListApi } from '../../../api/productsApi'
 import URIs from '../../../api/URIs'
 
+import { productEdited } from '../../../store/products/productsSlice'
 import { messageAdded } from '../../../store/notifications/notificationsSlice'
 
 const EditFormContainer = ({ product }) => {
 
 	const dispatch = useDispatch()
 
-	const editProduct = async (values, resetForm) => {
-		const data = {
+	const editProduct = async values => {
+		const updatedProduct = {
 			product: {
 				...values,
 				price: Number(values.price)
 			}
 		}
 
-		const response =
-			await productsListApi.patch(`${URIs.products}/${product.id}`, data)
+		const { data } =
+			await productsListApi.patch(`${URIs.products}/${product.id}`, updatedProduct)
 
-		if (response) {
-			resetForm()
-			dispatch(messageAdded('Product edits have been saved.'))
+		if (data) {
+			const { id, name } = data
+			dispatch(productEdited({ id, changes: data }))
+			dispatch(messageAdded(`${name} changes have been saved.`))
 		}
 	}
 
