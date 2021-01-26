@@ -7,7 +7,7 @@ import { productsListApi } from '../../api/productsApi'
 import URIs from '../../api/URIs'
 
 const productsAdapter = createEntityAdapter({
-	sortComparer: (a, b) => a.id.localeCompare(b.id)
+	sortComparer: (a, b) => b.createdAt.localeCompare(a.createdAt)
 })
 
 const initialState = productsAdapter.getInitialState({
@@ -27,7 +27,12 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts',
 const productsSlice = createSlice({
 	name: 'products',
 	initialState,
-	reducers: {},
+	reducers: {
+		productEdited: productsAdapter.updateOne,
+		productAdded(state, action) {
+			productsAdapter.addOne(state, action.payload)
+		}
+	},
 	extraReducers: {
 		[fetchProducts.pending]: (state) => {
 			state.status = 'loading'
@@ -48,6 +53,8 @@ const productsSlice = createSlice({
 		},
 	}
 })
+
+export const { productEdited, productAdded } = productsSlice.actions
 
 export default productsSlice.reducer
 
