@@ -34,6 +34,13 @@ const Header = () => {
 				>
 					MY PRODUCTS
 				</NavLink>
+				<NavLink
+					exact
+					to={routes.orders}
+					activeClassName={classes.active}
+				>
+					ORDERS
+				</NavLink>
 			</nav>
 			<PortalButton
 				title="Create new product"

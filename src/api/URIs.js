@@ -1,4 +1,5 @@
 export default {
 	products: '/products',
-	origins: '/products-origins'
+	origins: '/products-origins',
+	orders: '/orders'
 }

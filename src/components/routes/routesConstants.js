@@ -4,7 +4,8 @@ const routes = {
 	productsCreated: '/products/created',
 	product: '/product',
 	productDetails: '/product/:id',
-	cart: '/cart'
+	cart: '/cart',
+	orders: '/orders'
 }
 
 export default routes
