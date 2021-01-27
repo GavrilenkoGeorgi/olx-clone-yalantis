@@ -1,48 +1,39 @@
-import React from 'react'
-import { useRouteMatch, NavLink } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useRouteMatch } from 'react-router-dom'
 import routes from '../../routes/routesConstants'
 
+import { ReactComponent as MenuIcon } from '../../../assets/svg/ellipsis-v-solid.svg'
 import { CartWidget } from '../../widgets'
 import { CreateFormContainer } from '../../Forms'
 import { PortalButton } from '../../UI'
 import classes from './Header.module.sass'
 
+import SideDrawer from '../../UI/SideDrawer/SideDrawer'
+import { NavLinks } from '../../Navigation'
+
 const Header = () => {
 
+	const [ isSDOpen, setIsSDOpen ] = useState(false)
 	const matchCartPage = useRouteMatch(routes.cart)
+	const openSideDrawer = () => {
+		console.log('Opening side drawer')
+		setIsSDOpen(!isSDOpen)
+	}
 
 	const header = () => {
 		return <header className={classes.header}>
-			<nav>
-				<NavLink
-					exact
-					to={routes.mainPage}
-					activeClassName={classes.active}
-				>
-					MAIN
-				</NavLink>
-				<NavLink
-					exact
-					to={routes.products}
-					activeClassName={classes.active}
-				>
-					PRODUCTS
-				</NavLink>
-				<NavLink
-					to={routes.productsCreated}
-					activeClassName={classes.active}
-				>
-					MY PRODUCTS
-				</NavLink>
-				<NavLink
-					exact
-					to={routes.orders}
-					activeClassName={classes.active}
-				>
-					ORDERS
-				</NavLink>
-			</nav>
+			<SideDrawer
+				open={isSDOpen}
+				closed={() => setIsSDOpen(!isSDOpen)}
+			/>
+			<div className={classes.linksContainer}>
+				<NavLinks />
+			</div>
 			<div className={classes.buttons}>
+				<MenuIcon
+					className={classes.menuIcon}
+					onClick={() => openSideDrawer()}
+				/>
 				<CartWidget />
 				<PortalButton
 					title="Create new product"

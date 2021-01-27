@@ -11,28 +11,26 @@
 	flex-wrap: wrap
 	border-bottom: .1rem solid $primary-color
 	background-color: $primary-light-color
-	+responsive(2, 360px)
-		font-size: 90%
-	nav
-		display: flex
-		align-items: center
-		justify-content: space-around
-		flex-grow: 2
-		+responsive(2, 360px)
-		 display: inline
-	a
-		color: $header-link-color
-		font-weight: bold
-		letter-spacing: .095rem
-		text-decoration: none
-		&:hover
-			text-decoration: underline
-	.active
-		color: $header-active-link-color
-		text-decoration: underline
+
+.linksContainer
+	flex-grow: 2
+	+responsive(414px)
+		display: none
 
 .buttons
 	display: flex
 	margin: .4rem auto
 	flex-grow: 1
 	justify-content: space-around
+	align-items: center
+
+.menuIcon
+	height: 1.7rem
+	color: $primary-color
+	display: none
+	+defaultTransition($prop: color)
+	+responsive(414px)
+		display: inherit
+	&:hover
+		color: $secondary-color
+		cursor: pointer
