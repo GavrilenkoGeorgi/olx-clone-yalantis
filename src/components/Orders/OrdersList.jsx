@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 
 import {
 	fetchOrders,
@@ -14,10 +15,15 @@ import OrderCard from './OrderCard'
 const OrdersList = () => {
 
 	const dispatch = useDispatch()
+	const location = useLocation()
 
 	const orders = useSelector(selectOrderIds)
 	const ordersStatus = useSelector(selectOrdersStatus)
 	const error = useSelector(selectOrdersError)
+
+	useEffect(() => {
+		dispatch(fetchOrders())
+	}, [ location, dispatch ])
 
 	useEffect(() => {
 		if (ordersStatus === 'idle') {
