@@ -1,18 +1,17 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { productType } from '../../propTypes'
 
-import { useCart } from '../../../context/CartContext'
-import { saveData as saveCartItems } from '../../../utils'
+import { itemAdded } from '../../../store/cart/cartSlice'
+
 import classes from './AddToCartButton.module.sass'
 
 const AddToCartButton = ({ product }) => {
 
-	const { items, setItems } = useCart()
+	const dispatch = useDispatch()
 
-	const addProductToCart = product => {
-		const cartContents = [ ...items, product ]
-		setItems(cartContents)
-		saveCartItems(cartContents)
+	const addProductToCart = () => {
+		dispatch(itemAdded(product))
 	}
 
 	return <button className={classes.addBtn}

@@ -1,25 +1,29 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
+
 import CartProductGroups from './CartProductGroups'
 
-import { groupByOrigin } from '../../../utils'
 import products from '../../../fixtures/products.json'
 
-const groups = groupByOrigin(products.items)
+const [ product ] = products.items
+const mockStore = configureStore([])
 
 describe('<CartProductGroups /> component', () => {
+	let store
+
 	beforeEach(() => {
+		store = mockStore({})
+
 		render(
-			<CartProductGroups groups={groups} />
+			<Provider store={store}>
+				<CartProductGroups items={[ ...products.items ]} />
+			</Provider>
 		)
 	})
 
 	it('renders correctly', () => {
-		const [ firstGroup, secondGroup ] = groups
-
-		expect(screen.getByText(firstGroup.origin)).toBeInTheDocument()
-		expect(screen.getByText(secondGroup.origin)).toBeInTheDocument()
-		expect(screen.getByText(`${firstGroup.products.length} pcs`)).toBeInTheDocument()
-		expect(screen.getByText(`${secondGroup.products.length} pcs`)).toBeInTheDocument()
+		expect(screen.getByText(product.origin)).toBeInTheDocument()
 	})
 })

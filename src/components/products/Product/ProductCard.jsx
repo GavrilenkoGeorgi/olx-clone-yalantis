@@ -1,13 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { productType } from '../../propTypes'
+import { string } from 'prop-types'
+import { useSelector } from 'react-redux'
 
 import routes from '../../routes/routesConstants'
 
 import AddToCartButton from './AddToCartButton'
 import classes from './ProductCard.module.sass'
+import { selectProductById } from '../../../store/products/productsSlice'
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ productId }) => {
+
+	const product = useSelector(state => selectProductById(state, productId))
 
 	const DetailsLink = () =>
 		<Link to={`${routes.products}/${product.id}`}>Details...</Link>
@@ -32,7 +36,7 @@ const ProductCard = ({ product }) => {
 }
 
 ProductCard.propTypes = {
-	product: productType.isRequired
+	productId: string.isRequired
 }
 
 export default React.memo(ProductCard)

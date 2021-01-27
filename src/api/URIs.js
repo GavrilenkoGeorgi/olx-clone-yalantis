@@ -1,4 +1,4 @@
 export default {
-	products: '/products'
+	products: '/products',
+	origins: '/products-origins'
 }
-

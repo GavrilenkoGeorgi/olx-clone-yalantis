@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { object } from 'prop-types'
 
 import classes from './ErrorFallback.module.sass'
 
@@ -12,7 +12,7 @@ const ErrorFallback = ({ error }) => (
 )
 
 ErrorFallback.propTypes = {
-	error: PropTypes.object
+	error: object
 }
 
 ErrorFallback.defaultProps = {

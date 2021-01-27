@@ -1,21 +1,21 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-import { useCart } from '../../../context/CartContext'
 import routes from '../../routes/routesConstants'
-import { calcTotal } from '../../../utils'
+import { selectTotal } from '../../../store/cart/cartSlice'
+
 import { ReactComponent as CartIcon } from '../../../assets/svg/shopping-cart-solid.svg'
 import classes from './CartWidget.module.sass'
 
 const CartWidget = () => {
 
-	const { items } = useCart()
-	const memoTotal = useMemo(() => calcTotal(items), [ items ])
+	const total = useSelector(selectTotal)
 
 	return <div className={classes.widget}>
 		<NavLink to={routes.cart} >
 			<span className={classes.total}>
-				{memoTotal}
+				{total}
 			</span>
 			<CartIcon className={classes.icon} />
 		</NavLink>

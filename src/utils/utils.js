@@ -1,4 +1,34 @@
 /**
+ * Build query string from array of objects
+ *
+ * @param {Object[]} params - Objects
+ * @param {Object} item - Item with query name and value
+ * @param {string} item.param - Search param name
+ * @param {string} item.value - Search param value
+ *
+ * @throws Will throw an error if argument is missing of invalid
+ *
+ * @returns {string} Query string
+ */
+
+export const buildQuery = params => {
+
+	if (!params || !Array.isArray(params))
+		throw new Error('(buildQuery): Can\'t build query string, check input params.')
+
+	let queryString = ''
+	const queryParams = []
+
+	for (let { param, value } of params)
+		if (value) queryParams
+			.push(`${encodeURIComponent(param)}=${encodeURIComponent(value)}`)
+
+	if (queryParams.length)
+		return `${queryString}${queryParams.join('&')}`
+	else return ''
+}
+
+/**
  * Calculate total price
  * @param {Object[]} arrayOfObjects - Array of product objects
  * @param {number} object.price - Price of the product

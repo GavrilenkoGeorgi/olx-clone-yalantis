@@ -1,0 +1,5 @@
+export { default as Slider } from './Inputs/Slider/Slider'
+export { default as NumberInput } from './Inputs/NumberInput/NumberInput'
+export { default as CheckBox } from './CheckBox/CheckBox'
+export { default as Button } from './Button/Button'
+export { default as Select } from './Inputs/Select/Select'
