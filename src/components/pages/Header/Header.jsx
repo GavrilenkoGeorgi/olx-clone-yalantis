@@ -42,13 +42,15 @@ const Header = () => {
 					ORDERS
 				</NavLink>
 			</nav>
-			<PortalButton
-				title="Create new product"
-				btnLabel="CREATE"
-			>
-				<CreateFormContainer />
-			</PortalButton>
-			<CartWidget />
+			<div className={classes.buttons}>
+				<CartWidget />
+				<PortalButton
+					title="Create new product"
+					btnLabel="CREATE"
+				>
+					<CreateFormContainer />
+				</PortalButton>
+			</div>
 		</header>
 	}
 

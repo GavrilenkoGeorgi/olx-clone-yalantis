@@ -51,7 +51,7 @@ const ProductCard = ({ productId }) => {
 	const buttons = editable => editable ? controls : addToCartBtn
 
 	return <article className={classes.card}>
-		<h2>{product.name}</h2>
+		<strong>{product.name}</strong>
 		<div className={classes.description}>
 			<p>
 				Origin: <span className={classes.info}>{product.origin}</span>
