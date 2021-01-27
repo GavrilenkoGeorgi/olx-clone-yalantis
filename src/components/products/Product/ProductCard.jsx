@@ -11,7 +11,7 @@ import { itemAdded } from '../../../store/cart/cartSlice'
 import { Button, PortalButton } from '../../UI'
 import { EditFormContainer } from '../../Forms'
 import classes from './ProductCard.module.sass'
-import { selectProductById } from '../../../store/products/productsSlice'
+import { selectProductById, deleteProduct, productDeleted } from '../../../store/products/productsSlice'
 
 const ProductCard = ({ productId }) => {
 
@@ -27,18 +27,28 @@ const ProductCard = ({ productId }) => {
 
 	const MemodDetailsLink = React.memo(DetailsLink)
 
-	const editBtn = <PortalButton
-		title="Edit product"
-		btnLabel="Edit"
-	>
-		<EditFormContainer product={product}/>
-	</PortalButton>
+	const handleDelete = () => {
+		dispatch(deleteProduct(product.id))
+		dispatch(productDeleted(product.id))
+	}
+
+	const controls = <>
+		<PortalButton
+			title="Edit product"
+			btnLabel="Edit"
+		>
+			<EditFormContainer product={product}/>
+		</PortalButton>
+		<Button
+			label="Delete"
+			clicked={() => handleDelete()}/>
+	</>
 
 	const addToCartBtn = <Button
 		label="Add to cart"
 		clicked={addProductToCart}/>
 
-	const buttons = editable => editable ? editBtn : addToCartBtn
+	const buttons = editable => editable ? controls : addToCartBtn
 
 	return <article className={classes.card}>
 		<h2>{product.name}</h2>

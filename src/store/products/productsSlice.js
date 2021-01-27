@@ -24,6 +24,12 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts',
 		return response.data
 	})
 
+export const deleteProduct = createAsyncThunk('products/deleteProduct',
+	async (id) => {
+		let response =  await productsListApi.delete(`${URIs.products}/${id}`)
+		return response.data
+	})
+
 const productsSlice = createSlice({
 	name: 'products',
 	initialState,
@@ -31,6 +37,9 @@ const productsSlice = createSlice({
 		productEdited: productsAdapter.updateOne,
 		productAdded(state, action) {
 			productsAdapter.addOne(state, action.payload)
+		},
+		productDeleted(state, { payload }) {
+			productsAdapter.removeOne(state, payload)
 		}
 	},
 	extraReducers: {
@@ -54,7 +63,11 @@ const productsSlice = createSlice({
 	}
 })
 
-export const { productEdited, productAdded } = productsSlice.actions
+export const {
+	productEdited,
+	productAdded,
+	productDeleted
+} = productsSlice.actions
 
 export default productsSlice.reducer
 
