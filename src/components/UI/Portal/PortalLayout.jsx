@@ -5,7 +5,7 @@ import { children } from '../../propTypes'
 import { Button } from '../../UI'
 import classes from './PortalLayout.module.sass'
 
-const PortalLayout = ({ title, children, close }) => {
+const PortalLayout = ({ innerRef, title, children, close }) => {
 
 	const backdrop = useRef(null)
 
@@ -22,7 +22,7 @@ const PortalLayout = ({ title, children, close }) => {
 	}, [ close ])
 
 	return <div ref={backdrop} className={classes.backdrop}>
-		<div className={classes.portal}>
+		<div ref={innerRef} className={classes.portal}>
 			<div className={classes.header}>
 				<h1>{title}</h1>
 				<Button
@@ -48,7 +48,8 @@ const PortalLayout = ({ title, children, close }) => {
 PortalLayout.propTypes = {
 	title: PropTypes.string.isRequired,
 	children,
-	close: PropTypes.func.isRequired
+	close: PropTypes.func.isRequired,
+	innerRef: PropTypes.object
 }
 
 PortalLayout.defaultProps = {

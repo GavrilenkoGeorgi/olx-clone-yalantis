@@ -19,12 +19,12 @@ const AppContainer = ({ children }) => {
 	const fetching = useSelector(selectIsFetching)
 
 	const requestIsSuccessful = config => {
-		dispatch(fetchingState(true))
+		// dispatch(fetchingState(true))
 		return config
 	}
 
 	const reponseIsSuccessful = response => {
-		dispatch(fetchingState(false))
+		// dispatch(fetchingState(false))
 		return response
 	}
 
