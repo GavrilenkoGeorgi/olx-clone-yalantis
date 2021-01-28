@@ -15,8 +15,8 @@ const Header = () => {
 
 	const [ isSDOpen, setIsSDOpen ] = useState(false)
 	const matchCartPage = useRouteMatch(routes.cart)
+
 	const openSideDrawer = () => {
-		console.log('Opening side drawer')
 		setIsSDOpen(!isSDOpen)
 	}
 

@@ -7,6 +7,12 @@ const PortalButton = ({ title, btnLabel, children }) => {
 
 	const [ isOn, setOn ] = useState(false)
 
+	const childrenWithProps = React.Children.map(
+		children,
+		(child) =>
+			React.cloneElement(child, () => setOn(!isOn))
+	)
+
 	return <>
 		<Button
 			label={btnLabel}
@@ -21,7 +27,7 @@ const PortalButton = ({ title, btnLabel, children }) => {
 				title={title}
 				close={() => setOn(!isOn)}
 			>
-				{children}
+				{childrenWithProps}
 			</PortalLayout>
 		</PortalContainer>
 	</>

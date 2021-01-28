@@ -48,7 +48,7 @@ const CartProductGroups = ({ items }) => {
 				/>
 			))}
 		</div>
-		<div>
+		<div className={classes.controls}>
 			<Button clicked={() => handleOrder()} label="ORDER" />
 		</div>
 	</section>

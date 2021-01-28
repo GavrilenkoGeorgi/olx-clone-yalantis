@@ -1,14 +1,15 @@
 import React from 'react'
-import { string, func } from 'prop-types'
+import { string, func, object } from 'prop-types'
 
 import classes from './Button.module.sass'
 
-const Button = ({ label, clicked, ...props }) => {
+const Button = ({ innerRef, label, clicked, ...props }) => {
 
 	return <button
 		className={classes.btn}
 		{...props}
 		onClick={clicked}
+		ref={innerRef}
 	>
 		{label}
 	</button>
@@ -16,7 +17,8 @@ const Button = ({ label, clicked, ...props }) => {
 
 Button.propTypes = {
 	label: string.isRequired,
-	clicked: func
+	clicked: func,
+	innerRef: object
 }
 
 export default Button
