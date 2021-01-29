@@ -40,6 +40,23 @@ const productsSlice = createSlice({
 		},
 		productDeleted(state, { payload }) {
 			productsAdapter.removeOne(state, payload)
+		},
+		getProductsRequest(state, action) {
+			console.log(action)
+			state.status = 'loading'
+		},
+		getProductsFailed(state, action) {
+			state.status = 'failed'
+			state.error = action.error.message
+		},
+		getProductsSuccess(state, { payload }) {
+			const { page, perPage, totalItems, items } = payload
+			state.status = 'succeeded'
+			state.page = page
+			state.perPage = perPage
+			state.totalItems = totalItems
+
+			productsAdapter.setAll(state, items)
 		}
 	},
 	extraReducers: {
@@ -64,6 +81,9 @@ const productsSlice = createSlice({
 })
 
 export const {
+	getProductsRequest,
+	getProductsSuccess,
+	getProductsFailed,
 	productEdited,
 	productAdded,
 	productDeleted

@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
 import {
-	fetchProducts,
 	selectProductIds,
 	selectProductsStatus,
-	selectProductsError
+	selectProductsError,
+	getProductsRequest
 } from '../../../store/products/productsSlice'
 import routes from '../../routes/routesConstants'
 
@@ -29,16 +29,13 @@ const ProductsList = () => {
 	}, [ location.search ])
 
 	useEffect(() => {
-		// initial fetch
-		if (productsStatus === 'idle') {
-			dispatch(fetchProducts(`?editable=${editable}`))
-		}
-	}, [ productsStatus, dispatch, location, editable ])
+		dispatch(getProductsRequest(`?editable=${editable}`))
+	}, [ dispatch, editable ])
 
 	useEffect(() => {
 		// filtered fetch
 		const query = makeQuery(editable, location.search)
-		dispatch(fetchProducts(query))
+		dispatch(getProductsRequest(query))
 	}, [ location, dispatch, editable, makeQuery ])
 
 	let content = []
