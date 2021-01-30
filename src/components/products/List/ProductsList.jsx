@@ -29,11 +29,7 @@ const ProductsList = () => {
 	}, [ location.search ])
 
 	useEffect(() => {
-		dispatch(getProductsRequest(`?editable=${editable}`))
-	}, [ dispatch, editable ])
-
-	useEffect(() => {
-		// filtered fetch
+		// fetch products
 		const query = makeQuery(editable, location.search)
 		dispatch(getProductsRequest(query))
 	}, [ location, dispatch, editable, makeQuery ])

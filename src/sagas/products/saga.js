@@ -2,10 +2,13 @@ import { put, takeEvery } from 'redux-saga/effects'
 import {
 	getProductsRequest,
 	getProductsSuccess,
-	getProductsFailed
+	getProductsFailed,
+	deleteProductRequest,
+	deleteProductFailure,
+	deleteProductSuccess
 } from '../../store/products/productsSlice'
 
-import { getProducts } from '../../api/products'
+import { getProducts, deleteProduct } from '../../api/products'
 
 function* onGetProducts(action) {
 	try {
@@ -16,6 +19,16 @@ function* onGetProducts(action) {
 	}
 }
 
+function* onDeleteProduct(action) {
+	try {
+		yield deleteProduct(action.payload)
+		yield put(deleteProductSuccess(action.payload))
+	} catch (error) {
+		yield put(deleteProductFailure(error.message))
+	}
+}
+
 export default function* productsSagaWatcher() {
 	yield takeEvery(getProductsRequest, onGetProducts)
+	yield takeEvery(deleteProductRequest, onDeleteProduct)
 }

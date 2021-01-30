@@ -38,11 +38,18 @@ const productsSlice = createSlice({
 		productAdded(state, action) {
 			productsAdapter.addOne(state, action.payload)
 		},
-		productDeleted(state, { payload }) {
-			productsAdapter.removeOne(state, payload)
+		deleteProductRequest(state) {
+			state.status = 'loading'
 		},
-		getProductsRequest(state, action) {
-			console.log(action)
+		deleteProductSuccess(state, action) {
+			productsAdapter.removeOne(state, action.payload)
+			state.status = 'succeeded'
+		},
+		deleteProductFailure(state, action) {
+			state.status = 'failed'
+			state.error = action.error.message
+		},
+		getProductsRequest(state) {
 			state.status = 'loading'
 		},
 		getProductsFailed(state, action) {
@@ -86,7 +93,9 @@ export const {
 	getProductsFailed,
 	productEdited,
 	productAdded,
-	productDeleted
+	deleteProductRequest,
+	deleteProductSuccess,
+	deleteProductFailure
 } = productsSlice.actions
 
 export default productsSlice.reducer
