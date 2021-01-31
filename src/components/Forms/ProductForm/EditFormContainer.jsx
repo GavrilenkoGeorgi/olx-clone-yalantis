@@ -2,13 +2,8 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { productType } from '../../propTypes'
 
+import { editProductRequest } from '../../../store/products/productsSlice'
 import ProductForm from './ProductForm'
-
-import { productsListApi } from '../../../api/productsApi'
-import URIs from '../../../api/URIs'
-
-import { productEdited } from '../../../store/products/productsSlice'
-import { messageAdded } from '../../../store/notifications/notificationsSlice'
 
 const EditFormContainer = ({ product }) => {
 
@@ -18,18 +13,11 @@ const EditFormContainer = ({ product }) => {
 		const updatedProduct = {
 			product: {
 				...values,
-				price: Number(values.price)
+				price: Number(values.price),
+				id: product.id
 			}
 		}
-
-		const { data } =
-			await productsListApi.patch(`${URIs.products}/${product.id}`, updatedProduct)
-
-		if (data) {
-			const { id, name } = data
-			dispatch(productEdited({ id, changes: data }))
-			dispatch(messageAdded(`${name} changes have been saved.`))
-		}
+		dispatch(editProductRequest(updatedProduct))
 	}
 
 	return <ProductForm handleProduct={editProduct} product={product}/>

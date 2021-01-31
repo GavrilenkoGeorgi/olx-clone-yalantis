@@ -9,6 +9,7 @@ import {
 	getProductsRequest
 } from '../../../store/products/productsSlice'
 import routes from '../../routes/routesConstants'
+import * as settings from '../../../constants/settings'
 
 import ProductCard from '../Product/ProductCard'
 import classes from './ProductsList.module.sass'
@@ -35,17 +36,18 @@ const ProductsList = () => {
 	}, [ location, dispatch, editable, makeQuery ])
 
 	let content = []
+	const idleStatuses = [ settings.IDLE_STATUS, settings.SUCCESS_STATUS ]
 
-	if (productsStatus === 'loading') {
+	if (productsStatus === settings.LOADING_STATUS) {
 		<div>Loading...</div>
-	} else if (productsStatus === 'succeeded') {
+	} else if (idleStatuses.includes(productsStatus)) {
 		content = orderedProductIds.map(productId => (
 			<ProductCard
 				key={productId}
 				productId={productId}
 			/>
 		))
-	} else if (productsStatus === 'failed') {
+	} else if (productsStatus === settings.FAILURE_STATUS) {
 		content = <div>{error}</div>
 	}
 
