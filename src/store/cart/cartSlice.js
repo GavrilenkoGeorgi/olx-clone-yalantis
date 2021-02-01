@@ -7,11 +7,13 @@ const cartAdapter = createEntityAdapter({
 	sortComparer: (a, b) => a.name.localeCompare(b.name)
 })
 
+const initialState = cartAdapter.getInitialState({
+	total: 0
+})
+
 const cartSlice = createSlice({
 	name: 'cart',
-	initialState: cartAdapter.getInitialState({
-		total: 0
-	}),
+	initialState,
 	reducers: {
 		itemAdded: {
 			reducer(state, action) {
@@ -59,7 +61,8 @@ const cartSlice = createSlice({
 				state.entities[action.payload.id].quantity -= pcs
 			}
 			state.total -= item.price * pcs
-		}
+		},
+		cartEmptied: () => initialState
 	}
 })
 
@@ -67,7 +70,8 @@ export const {
 	itemAdded,
 	itemRemoved,
 	itemsRemoved,
-	itemQuantityRemoved
+	itemQuantityRemoved,
+	cartEmptied
 } = cartSlice.actions
 
 export default cartSlice.reducer

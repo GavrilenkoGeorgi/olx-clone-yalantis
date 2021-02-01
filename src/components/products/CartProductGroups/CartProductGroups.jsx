@@ -4,6 +4,7 @@ import { arrayOf } from 'prop-types'
 import { productType } from '../../propTypes'
 
 import { addOrderRequest } from '../../../store/orders/ordersSlice'
+import { cartEmptied } from '../../../store/cart/cartSlice'
 
 import { Button } from '../../UI'
 import ProductGroup from './ProductGroup/ProductGroup'
@@ -22,6 +23,7 @@ const CartProductGroups = ({ items }) => {
 
 	const handleOrder = () => {
 		dispatch(addOrderRequest(data))
+		dispatch(cartEmptied())
 	}
 
 	if (!items.length)
