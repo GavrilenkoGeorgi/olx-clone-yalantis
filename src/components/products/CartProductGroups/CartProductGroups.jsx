@@ -6,6 +6,7 @@ import { productType } from '../../propTypes'
 
 import routes from '../../routes/routesConstants'
 import { postOrder, selectLastAddedId } from '../../../store/orders/ordersSlice'
+import { cartEmptied } from '../../../store/cart/cartSlice'
 
 import { Button } from '../../UI'
 import ProductGroup from './ProductGroup/ProductGroup'
@@ -26,6 +27,7 @@ const CartProductGroups = ({ items }) => {
 
 	const handleOrder = () => {
 		dispatch(postOrder(data))
+		dispatch(cartEmptied())
 	}
 
 	useEffect(() => {
