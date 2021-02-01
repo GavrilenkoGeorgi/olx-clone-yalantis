@@ -32,10 +32,10 @@ describe('<Header /> component', () => {
 	})
 
 	it('renders correctly', () => {
-		const linkToTheMainPage = screen.getByText('MAIN')
+		const [ linkToTheMainPage ] = screen.getAllByText('MAIN')
 		expect(linkToTheMainPage).toHaveAttribute('href', '/')
 
-		const linkToTheProductsPage = screen.getByText('PRODUCTS')
+		const [ linkToTheProductsPage ] = screen.getAllByText('PRODUCTS')
 		expect(linkToTheProductsPage).toHaveAttribute('href', '/products')
 
 		const cartWidgetLink = screen.getByText(product.price).closest('a')

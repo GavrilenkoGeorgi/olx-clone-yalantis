@@ -18,6 +18,11 @@ describe('App main view', () => {
 				ids: [ product.id ],
 				entities: { [ product.id ]: product },
 				total: product.price
+			},
+			notifications: {
+				message: '',
+				fetching: false,
+				error: ''
 			}
 		})
 
@@ -37,13 +42,13 @@ describe('App main view', () => {
 	})
 
 	it('navbar is present', () => {
-		const mainPageLink = screen.getByText('MAIN')
+		const [ mainPageLink ] = screen.getAllByText('MAIN')
 
 		expect(mainPageLink).toBeInTheDocument()
 		expect(mainPageLink).toHaveClass('active')
 		expect(mainPageLink).toHaveAttribute('href', '/')
 
-		const productsPageLink = screen.getByText('PRODUCTS')
+		const [ productsPageLink ] = screen.getAllByText('PRODUCTS')
 		expect(productsPageLink).toHaveAttribute('href', '/products')
 	})
 
