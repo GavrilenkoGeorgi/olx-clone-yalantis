@@ -43,7 +43,7 @@ describe('<ProductDetails /> component', () => {
 			<Provider store={store}>
 				<MemoryRouter
 					initialEntries={
-						[ `/products/${product.id}` ]}
+						[ `/product/${product.id}` ]}
 					initialIndex={0}
 				>
 					<Routes />
