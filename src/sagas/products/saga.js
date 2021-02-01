@@ -1,4 +1,4 @@
-import { put, takeEvery, delay } from 'redux-saga/effects'
+import { all, put, takeEvery, delay, takeLatest } from 'redux-saga/effects'
 
 import {
 	getProductsRequest, getProductsSuccess, getProductsFailed,
@@ -11,6 +11,21 @@ import { getProducts, deleteProduct,
 	addProduct, editProduct } from '../../api/products'
 
 import { DEFAULT_NOTIFICATION_TIMEOUT } from '../../constants/settings'
+
+/*
+function* debounceOnGetProducts(action) {
+	yield debounce(1000, getProductsRequest, onGetProducts)
+} */
+
+export default function* productsSagaWatcher() {
+	yield all([
+		// takeEvery(getProductsRequest, debounceOnGetProducts),
+		takeLatest(getProductsRequest, onGetProducts),
+		takeEvery(deleteProductRequest, onDeleteProduct),
+		takeEvery(addProductRequest, onAddProduct),
+		takeEvery(editProductRequest, onEditProduct)
+	])
+}
 
 function* onGetProducts(action) {
 	try {
@@ -62,11 +77,4 @@ function* onEditProduct(action) {
 		yield delay(DEFAULT_NOTIFICATION_TIMEOUT)
 		yield put(setIdleStatus())
 	}
-}
-
-export default function* productsSagaWatcher() {
-	yield takeEvery(getProductsRequest, onGetProducts)
-	yield takeEvery(deleteProductRequest, onDeleteProduct)
-	yield takeEvery(addProductRequest, onAddProduct)
-	yield takeEvery(editProductRequest, onEditProduct)
 }
