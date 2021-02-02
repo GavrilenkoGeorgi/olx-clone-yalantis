@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { addProductRequest } from '../../../store/products/productsSlice'
+import { onAddProduct } from '../../../sagas/products'
 import ProductForm from './ProductForm'
 
 const CreateFormContainer = () => {
@@ -16,7 +16,7 @@ const CreateFormContainer = () => {
 			}
 		}
 
-		dispatch(addProductRequest(newProduct))
+		dispatch(onAddProduct(newProduct))
 		resetForm()
 	}
 

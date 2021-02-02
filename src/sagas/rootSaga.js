@@ -1,14 +1,14 @@
-import { all } from 'redux-saga/effects'
-import notificationsSagaWatcher from './notifications/saga'
-import productsSaga from './products/saga'
-import watchOrders from './orders/saga'
-import cartWatcher from './cart/saga'
+import { all, fork } from 'redux-saga/effects'
+import { notificationsSaga } from './notifications'
+import { productsSaga } from './products/index'
+import { ordersSaga } from './orders'
+import { cartSaga } from './cart'
 
 export default function* rootSaga() {
 	yield all([
-		notificationsSagaWatcher(),
-		productsSaga(),
-		watchOrders(),
-		cartWatcher()
+		fork(notificationsSaga),
+		fork(productsSaga),
+		fork(ordersSaga),
+		fork(cartSaga)
 	])
 }

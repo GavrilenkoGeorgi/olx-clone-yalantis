@@ -25,9 +25,6 @@ const productsSlice = createSlice({
 			state.status = settings.IDLE_STATUS
 		},
 		// edit product
-		editProductRequest(state) {
-			state.status = settings.LOADING_STATUS
-		},
 		editProductSuccess(state, action) {
 			state.status = settings.SUCCESS_STATUS
 			productsAdapter.upsertOne(state, action.payload)
@@ -45,13 +42,7 @@ const productsSlice = createSlice({
 			state.status = settings.SUCCESS_STATUS
 			state.productCreated = true
 		},
-		addProductRequest(state) {
-			state.status = settings.LOADING_STATUS
-		},
 		// delete single product
-		deleteProductRequest(state) {
-			state.status = settings.LOADING_STATUS
-		},
 		deleteProductSuccess(state, action) {
 			productsAdapter.removeOne(state, action.payload)
 			state.status = settings.SUCCESS_STATUS
@@ -61,9 +52,6 @@ const productsSlice = createSlice({
 			state.error = action.error.message
 		},
 		// get list of products
-		getProductsRequest(state) {
-			state.status = settings.LOADING_STATUS
-		},
 		getProductsFailed(state, action) {
 			state.status = settings.FAILURE_STATUS
 			state.error = action.error.message
@@ -82,18 +70,14 @@ const productsSlice = createSlice({
 
 export const {
 	setIdleStatus,
-	getProductsRequest,
 	getProductsSuccess,
 	getProductsFailed,
 	productEdited,
-	deleteProductRequest,
 	deleteProductSuccess,
 	deleteProductFailure,
 	addProductFailure,
-	addProductRequest,
 	addProductSuccess,
 	editProductFailure,
-	editProductRequest,
 	editProductSuccess
 } = productsSlice.actions
 

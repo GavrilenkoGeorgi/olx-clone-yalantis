@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import './index.css'
 import { App } from './components/containers'
+import { configureAppStore } from './store/store'
 
-import store from './store/store'
-// import configureAppStore from './store/store'
-// const store = configureAppStore()
+const { store } = configureAppStore()
 
 ReactDOM.render(
 	<React.StrictMode>

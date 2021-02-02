@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { arrayOf } from 'prop-types'
 import { productType } from '../../propTypes'
 
-import { addOrderRequest } from '../../../store/orders/ordersSlice'
+import { onAddOrder } from '../../../sagas/orders'
 import { cartEmptied } from '../../../store/cart/cartSlice'
 
 import { Button } from '../../UI'
@@ -22,7 +22,7 @@ const CartProductGroups = ({ items }) => {
 	}
 
 	const handleOrder = () => {
-		dispatch(addOrderRequest(data))
+		dispatch(onAddOrder(data))
 		dispatch(cartEmptied())
 	}
 

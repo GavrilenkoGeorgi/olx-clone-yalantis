@@ -5,14 +5,15 @@ import { useLocation } from 'react-router-dom'
 import {
 	selectProductIds,
 	selectProductsStatus,
-	selectProductsError,
-	getProductsRequest
+	selectProductsError
 } from '../../../store/products/productsSlice'
 import routes from '../../routes/routesConstants'
 import * as settings from '../../../constants/settings'
 
 import ProductCard from '../Product/ProductCard'
 import classes from './ProductsList.module.sass'
+
+import { onGetProducts } from '../../../sagas/products'
 
 const ProductsList = () => {
 
@@ -32,7 +33,7 @@ const ProductsList = () => {
 	useEffect(() => {
 		// fetch products
 		const query = makeQuery(editable, location.search)
-		dispatch(getProductsRequest(query))
+		dispatch(onGetProducts(query))
 	}, [ location, dispatch, editable, makeQuery ])
 
 	let content = []
@@ -53,7 +54,15 @@ const ProductsList = () => {
 
 	const nothingFoundMessage = <h3>No products found with given params.</h3>
 
+	const handleGetProducts = () => {
+		const query = makeQuery(editable, location.search)
+		dispatch(onGetProducts(query))
+	}
+
 	return <section className={classes.layout}>
+		<div>
+			<button onClick={() => handleGetProducts()}>get products!</button>
+		</div>
 		{content.length ? content : nothingFoundMessage}
 	</section>
 }

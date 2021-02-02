@@ -21,9 +21,6 @@ const ordersSlice = createSlice({
 	initialState,
 	reducers: {
 		// get order details
-		getOrderDetailsRequest(state) {
-			state.status = settings.LOADING_STATUS
-		},
 		getOrderDetailsSuccess(state, action) {
 			state.status = settings.SUCCESS_STATUS
 			state.singleOrderDetails = action.payload
@@ -33,9 +30,6 @@ const ordersSlice = createSlice({
 			state.error = action.payload
 		},
 		// add order
-		addOrderRequest(state) {
-			state.status = settings.LOADING_STATUS
-		},
 		addOrderSuccess(state, action) {
 			state.status = settings.SUCCESS_STATUS
 			// createdAt field is absent in the api reponse
@@ -49,9 +43,6 @@ const ordersSlice = createSlice({
 			state.error = action.payload
 		},
 		// get all orders
-		getOrdersRequest(state) {
-			state.status = settings.LOADING_STATUS
-		},
 		getOrdersSuccess(state, action) {
 			state.status = settings.SUCCESS_STATUS
 			ordersAdapter.setAll(state, action.payload.items) // !!!!
@@ -68,13 +59,10 @@ const ordersSlice = createSlice({
 
 export const {
 	lastIdCleared,
-	getOrdersRequest,
 	getOrdersSuccess,
 	getOrdersFailure,
-	getOrderDetailsRequest,
 	getOrderDetailsSuccess,
 	getOrderDetailsFailure,
-	addOrderRequest,
 	addOrderSuccess,
 	addOrderFailure
 } = ordersSlice.actions

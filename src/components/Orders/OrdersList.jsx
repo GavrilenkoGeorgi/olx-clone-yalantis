@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
 import {
-	getOrdersRequest,
 	selectOrderIds,
 	selectOrdersError,
 	selectOrdersStatus
 } from '../../store/orders/ordersSlice'
+import { onGetOrders } from '../../sagas/orders'
 
 import classes from './OrdersList.module.sass'
 import OrderCard from './OrderCard'
@@ -24,7 +24,7 @@ const OrdersList = () => {
 	const error = useSelector(selectOrdersError)
 
 	useEffect(() => {
-		dispatch(getOrdersRequest())
+		dispatch(onGetOrders())
 	}, [ location, dispatch ]) // location?
 
 	let content

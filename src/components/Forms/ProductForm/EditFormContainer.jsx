@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { productType } from '../../propTypes'
 
-import { editProductRequest } from '../../../store/products/productsSlice'
+import { onEditProduct } from '../../../sagas/products'
 import ProductForm from './ProductForm'
 
 const EditFormContainer = ({ product }) => {
@@ -17,7 +17,7 @@ const EditFormContainer = ({ product }) => {
 				id: product.id
 			}
 		}
-		dispatch(editProductRequest(updatedProduct))
+		dispatch(onEditProduct(updatedProduct))
 	}
 
 	return <ProductForm handleProduct={editProduct} product={product}/>

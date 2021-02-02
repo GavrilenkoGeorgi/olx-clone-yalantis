@@ -8,7 +8,7 @@ import cartReducer from './cart/cartSlice'
 import notificationsReducer from './notifications/notificationsSlice'
 import ordersReducer from './orders/ordersSlice'
 
-const configureAppStore = (initialState = {}) => {
+export const configureAppStore = (initialState = {}) => {
 	const sagaMiddleware = createSagaMiddleware()
 
 	const store = configureStore({
@@ -26,9 +26,6 @@ const configureAppStore = (initialState = {}) => {
 
 	sagaMiddleware.run(rootSaga)
 
-	return store
+	return { store }
 }
 
-const store = configureAppStore()
-
-export default store
