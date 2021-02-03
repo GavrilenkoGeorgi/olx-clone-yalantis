@@ -7,13 +7,15 @@ import {
 	selectProductsStatus,
 	selectProductsError
 } from '../../../store/products/productsSlice'
+import { onGetProducts } from '../../../sagas/products'
+
 import routes from '../../routes/routesConstants'
 import * as settings from '../../../constants/settings'
+import { editableParam } from '../../../utils'
 
 import ProductCard from '../Product/ProductCard'
 import classes from './ProductsList.module.sass'
 
-import { onGetProducts } from '../../../sagas/products'
 
 const ProductsList = () => {
 
@@ -26,12 +28,15 @@ const ProductsList = () => {
 	const editable = location.pathname === routes.productsCreated ? true : false
 
 	const makeQuery = useCallback((editable, search) => {
-		if (search) return `?editable=${editable}&${location.search.substring(1)}`
-		else return `?editable=${editable}`
+		const isEditable = editableParam(editable, search)
+
+		if (search) return `${location.search}${isEditable}`
+		else if (editable && !search) return isEditable
+		else return ''
+
 	}, [ location.search ])
 
 	useEffect(() => {
-		// fetch products
 		const query = makeQuery(editable, location.search)
 		dispatch(onGetProducts(query))
 	}, [ location, dispatch, editable, makeQuery ])
@@ -54,15 +59,7 @@ const ProductsList = () => {
 
 	const nothingFoundMessage = <h3>No products found with given params.</h3>
 
-	const handleGetProducts = () => {
-		const query = makeQuery(editable, location.search)
-		dispatch(onGetProducts(query))
-	}
-
 	return <section className={classes.layout}>
-		<div>
-			<button onClick={() => handleGetProducts()}>get products!</button>
-		</div>
 		{content.length ? content : nothingFoundMessage}
 	</section>
 }

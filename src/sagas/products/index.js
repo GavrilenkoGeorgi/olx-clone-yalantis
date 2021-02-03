@@ -1,4 +1,4 @@
-import { put } from 'redux-saga/effects'
+import { put, delay } from 'redux-saga/effects'
 import { createSliceSaga, SagaType } from 'redux-toolkit-saga'
 
 import { getProducts, deleteProduct,
@@ -11,9 +11,7 @@ import {
 	setIdleStatus
 } from '../../store/products/productsSlice'
 
-import { DEFAULT_NOTIFICATION_TIMEOUT } from '../../constants/settings'
-
-const delay = (ms) => new Promise((res) => setTimeout(res, ms)) //!!!
+import { DEFAULT_NOTIFICATION_TIMEOUT, DEBOUNCE_TIMEOUT } from '../../constants/settings'
 
 const productsSagaSlice = createSliceSaga({
 	// The name is the prefix to differentiate the slice actions
@@ -24,10 +22,16 @@ const productsSagaSlice = createSliceSaga({
 
 	caseSagas: {
 		onGetProducts: {
-			*fn(action) {
-				yield delay(10) // !!
+			*fn({ payload }) {
 				try {
-					const products = yield getProducts(action.payload)
+					let products
+					if (!payload || payload === '?editable=true') {
+						// unfiltered list of (created) products
+						products = yield getProducts(payload || '')
+					} else { // everything else
+						yield delay(DEBOUNCE_TIMEOUT)
+						products = yield getProducts(payload)
+					}
 					yield put(getProductsSuccess(products))
 				} catch (error) {
 					if (error.message) yield put(getProductsFailed(error.message))
@@ -37,7 +41,7 @@ const productsSagaSlice = createSliceSaga({
 					yield put(setIdleStatus())
 				}
 			},
-			sagaType: SagaType.TakeEvery
+			sagaType: SagaType.TakeLatest
 		},
 		onDeleteProduct: {
 			*fn(action) {

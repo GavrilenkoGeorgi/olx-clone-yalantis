@@ -102,3 +102,26 @@ export const formatDate = dateString => {
 * @returns {boolean} - True if object exists, false otherwise
 */
 export const pureObjectIsEmpty = obj => obj && obj.constructor === Object && Object.keys(obj).length === 0
+
+/**
+ * Generate search params string considering 'editable' param
+ * @param {*} editable - Value to convert to boolean
+ * @param {string} search - Search string if any
+ *
+ * @returns {string} - Search params
+ */
+
+export const editableParam = (editable, search) => {
+	let param = ''
+	const edit = `editable=${Boolean(editable)}`
+	if (search && editable) {
+		// put it to the end
+		return param = `&${edit}`
+	} else if (search && !editable) {
+		// just return empty
+		return param
+	} else if (!search) {
+		// single editable param
+		return param = `?${edit}`
+	}
+}

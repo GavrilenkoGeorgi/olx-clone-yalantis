@@ -11,6 +11,7 @@ import {
 	selectLastAddedId,
 	lastIdCleared
 } from '../../store/orders/ordersSlice'
+import { cartEmptied } from '../../store/cart/cartSlice'
 
 import { getOrders, getOrderDetails, addOrder } from '../../api/orders'
 import { history } from '../../components/containers/App'
@@ -53,6 +54,7 @@ const ordersSagaSlice = createSliceSaga({
 				try {
 					const order = yield addOrder(action.payload)
 					yield put(addOrderSuccess(order))
+					yield put(cartEmptied())
 					let id = yield select(selectLastAddedId)
 					yield call(navigateTo, `/orders/${id}`)
 					yield put(lastIdCleared())

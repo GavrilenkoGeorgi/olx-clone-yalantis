@@ -4,7 +4,6 @@ import { arrayOf } from 'prop-types'
 import { productType } from '../../propTypes'
 
 import { onAddOrder } from '../../../sagas/orders'
-import { cartEmptied } from '../../../store/cart/cartSlice'
 
 import { Button } from '../../UI'
 import ProductGroup from './ProductGroup/ProductGroup'
@@ -23,7 +22,6 @@ const CartProductGroups = ({ items }) => {
 
 	const handleOrder = () => {
 		dispatch(onAddOrder(data))
-		dispatch(cartEmptied())
 	}
 
 	if (!items.length)
