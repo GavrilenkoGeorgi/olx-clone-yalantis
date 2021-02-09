@@ -20,3 +20,15 @@ export const notification = shape({
 	message: string.isRequired,
 	variant: string
 })
+
+export const orderPiece = shape({
+	id: string.isRequired,
+	count: number.isRequired,
+	product: productType.isRequired
+})
+
+export const orderType = shape({
+	id: string.isRequired,
+	createdAt: string,
+	pieces: arrayOf(orderPiece)
+})

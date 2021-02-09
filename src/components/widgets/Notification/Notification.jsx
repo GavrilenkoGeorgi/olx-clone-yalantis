@@ -1,34 +1,44 @@
 import React from 'react'
-import { func } from 'prop-types'
-import { notification } from '../../propTypes'
+import { useDispatch, useSelector } from 'react-redux'
 
+import {
+	selectError,
+	selectMessage,
+	notificationsCleared
+} from '../../../store/notifications/notificationsSlice'
+
+import { Button } from '../../UI'
+import cx from 'classnames'
 import classes from './Notification.module.sass'
 
-const Notification = ({ notification, close }) => {
+const Notification = () => {
 
-	const { message, variant } = notification
+	const dispatch = useDispatch()
+	const error = useSelector(selectError)
+	const message = useSelector(selectMessage)
 
-	return <div className={classes.container}>
-		<div className={`${classes.notification}
-			${ variant === 'error' ? classes.error : '' }`}>
-			<p className={classes.text}>{message}</p>
-			<hr />
-			<div className={classes.controls}>
-				<button onClick={() => close()}>Close</button>
-			</div>
+	const closeNotification = () => {
+		dispatch(notificationsCleared())
+	}
+
+	const containerClasses = cx(classes.container,
+		{ [classes.open]: message || error },
+		{ [classes.close]: !message && !error }
+	)
+
+	const notificationClasses = cx(classes.notification,
+		{ [classes.message]: message },
+		{ [classes.error]: error }
+	)
+
+	return <div className={containerClasses}>
+		<div className={notificationClasses}>
+			<p>{message} {error}</p>
+			<Button className={classes.btn}
+				label="Close" clicked={() => closeNotification()}
+			/>
 		</div>
 	</div>
-}
-
-Notification.propTypes = {
-	notification,
-	close: func.isRequired
-}
-
-Notification.defaultProps = {
-	notification: {
-		message: 'No message set.'
-	}
 }
 
 export default Notification

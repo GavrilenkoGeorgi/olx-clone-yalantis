@@ -1,8 +1,12 @@
 const routes = {
 	mainPage: '/',
 	products: '/products',
-	productDetails: '/products/:id',
-	cart: '/cart'
+	productsCreated: '/products/created',
+	product: '/product',
+	productDetails: '/product/:id',
+	cart: '/cart',
+	orders: '/orders',
+	order: '/orders/:id'
 }
 
 export default routes

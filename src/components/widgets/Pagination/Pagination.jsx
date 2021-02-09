@@ -40,15 +40,13 @@ const Pagination = ({ changePages }) => {
 
 	return <section className={classes.paginationContainer}>
 		<div className={classes.perPageSelect}>
-			<div>
-				<Select
-					name="perPage"
-					options={perPageOptions}
-					value={perPage.toString()}
-					onChange={e => changePages({ perPage: e.target.value })}
-				/>
-				<span>products per page on {numberOfPages} pages.</span>
-			</div>
+			<Select
+				name="perPage"
+				options={perPageOptions}
+				value={perPage.toString()}
+				onChange={e => changePages({ perPage: e.target.value })}
+			/>
+			<span>products per page on {numberOfPages} pages.</span>
 		</div>
 		<div className={classes.buttons}>
 			<Button className={classes.navBtn}

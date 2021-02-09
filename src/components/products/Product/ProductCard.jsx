@@ -5,21 +5,53 @@ import { useSelector } from 'react-redux'
 
 import routes from '../../routes/routesConstants'
 
-import AddToCartButton from './AddToCartButton'
+import { useDispatch } from 'react-redux'
+import { itemAdded } from '../../../store/cart/cartSlice'
+
+import { Button, PortalButton } from '../../UI'
+import { EditFormContainer } from '../../Forms'
 import classes from './ProductCard.module.sass'
-import { selectProductById } from '../../../store/products/productsSlice'
+import { selectProductById, deleteProduct, productDeleted } from '../../../store/products/productsSlice'
 
 const ProductCard = ({ productId }) => {
 
+	const dispatch = useDispatch()
 	const product = useSelector(state => selectProductById(state, productId))
 
+	const addProductToCart = () => {
+		dispatch(itemAdded(product))
+	}
+
 	const DetailsLink = () =>
-		<Link to={`${routes.products}/${product.id}`}>Details...</Link>
+		<Link to={`${routes.product}/${product.id}`}>Details...</Link>
 
 	const MemodDetailsLink = React.memo(DetailsLink)
 
+	const handleDelete = () => {
+		dispatch(deleteProduct(product.id))
+		dispatch(productDeleted(product.id))
+	}
+
+	const controls = <>
+		<PortalButton
+			title="Edit product"
+			btnLabel="Edit"
+		>
+			<EditFormContainer product={product}/>
+		</PortalButton>
+		<Button
+			label="Delete"
+			clicked={() => handleDelete()}/>
+	</>
+
+	const addToCartBtn = <Button
+		label="Add to cart"
+		clicked={addProductToCart}/>
+
+	const buttons = editable => editable ? controls : addToCartBtn
+
 	return <article className={classes.card}>
-		<h2>{product.name}</h2>
+		<strong>{product.name}</strong>
 		<div className={classes.description}>
 			<p>
 				Origin: <span className={classes.info}>{product.origin}</span>
@@ -29,7 +61,7 @@ const ProductCard = ({ productId }) => {
 			</p>
 		</div>
 		<div className={classes.controls}>
-			<AddToCartButton product={product} />
+			{buttons(product.isEditable)}
 			<MemodDetailsLink />
 		</div>
 	</article>

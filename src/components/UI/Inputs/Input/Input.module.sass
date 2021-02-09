@@ -1,0 +1,25 @@
+@import 'styles/colors'
+@import 'styles/mixins'
+
+.container
+	margin: 0rem 0rem 1.8rem 0rem
+	label
+		display: block
+		color: 
+	input
+		width: 100%
+		line-height: 2
+		border-radius: .3rem
+
+.invalid
+	+formErrorBorder()
+
+.valid
+	+formSuccessBorder()
+
+.error
+	font-style: italic
+	font-size: smaller
+	margin: 0
+	position: absolute
+	color: $error-color

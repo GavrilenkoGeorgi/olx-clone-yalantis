@@ -1,36 +1,20 @@
-import React, { useEffect, useCallback, useState } from 'react'
-import { useErrorHandler } from 'react-error-boundary'
+import React, { useEffect, useState } from 'react'
 import { object, func } from 'prop-types'
 
-import useAxios from '../../../hooks/useAxios'
-import { productsListApi } from '../../../api/productsApi'
-import URIs from '../../../api/URIs'
-
-import { Button, Slider, CheckBox } from '../../UI'
+import useOrigins from '../../../hooks/useOrigins'
 import { MAX_PRICE, MIN_PRICE } from '../../../constants/constants'
 
+import { Button, Slider, CheckBox } from '../../UI'
 import classes from './ProductFilter.module.sass'
 
 const ProductFilter = ({ filter, setFilter, applyFilter }) => {
 
+	const originsData = useOrigins()
 	const [ origins, setOrigins ] = useState([])
-	const handleError = useErrorHandler()
-
-	const { response, error } = useAxios({
-		api: productsListApi,
-		method: 'get',
-		url: URIs.origins
-	})
-
-	const initOrigins = useCallback(items => {
-		setOrigins(items)
-	}, [ setOrigins ])
 
 	useEffect(() => {
-		response
-			? initOrigins(response.items)
-			: handleError(error)
-	}, [ response, initOrigins, error, handleError ])
+		setOrigins([ ...originsData ])
+	}, [ originsData ])
 
 	const handleOriginSelect = (id) => {
 		if (filter.origins.has(id)) {

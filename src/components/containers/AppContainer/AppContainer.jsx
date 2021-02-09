@@ -1,49 +1,47 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { ErrorBoundary } from 'react-error-boundary'
 import { children } from '../../propTypes'
 
 import { productsListApi } from '../../../api/productsApi'
-import ErrorFallback from '../ErrorBoundary/ErrorFallback'
+import {
+	fetchingState,
+	selectIsFetching,
+	errorAdded
+} from '../../../store/notifications/notificationsSlice'
 
+import ErrorFallback from '../ErrorBoundary/ErrorFallback'
 import { Loader, Notification } from '../../widgets'
 
 const AppContainer = ({ children }) => {
 
+	const dispatch = useDispatch()
+	const fetching = useSelector(selectIsFetching)
+
 	const requestIsSuccessful = config => {
-		setIsLoading(true)
+		// dispatch(fetchingState(true))
 		return config
 	}
 
 	const reponseIsSuccessful = response => {
-		setIsLoading(false)
+		// dispatch(fetchingState(false))
 		return response
 	}
 
 	const handleError = error => {
-		console.error(error.message)
-		setIsLoading(false)
-		setNotification({ message: error.message, variant: 'error' })
+		dispatch(errorAdded(error.message))
+		dispatch(fetchingState(false))
 		return Promise.reject(error)
 	}
 
 	productsListApi.interceptors.request.use(requestIsSuccessful, handleError)
 	productsListApi.interceptors.response.use(reponseIsSuccessful, handleError)
 
-	const [ isLoading, setIsLoading ] = useState(false)
-	const showLoader = () => isLoading ? <Loader /> : null
-
-	const emptyNotification = { message: '', variant: '' }
-	const [ notification, setNotification ] = useState(emptyNotification)
-
-	const closeNotification = () => setNotification(emptyNotification)
-	const showNotification = () =>
-		notification.message
-			? <Notification notification={notification} close={closeNotification} />
-			: null
+	const showLoader = () => fetching ? <Loader /> : null
 
 	return <>
 		{showLoader()}
-		{showNotification()}
+		<Notification />
 		<ErrorBoundary FallbackComponent={ErrorFallback}>
 			{children}
 		</ErrorBoundary>

@@ -1,40 +1,54 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
 
 import Notification from './Notification'
 
-const close = jest.fn()
+const mockStore = configureStore([])
 
 describe('<Notification /> component', () => {
-	const notification = {
-		message: 'Test error message',
-		variant: 'error'
-	}
-
+	let store
 	let view
 
 	beforeEach(() => {
+		store = mockStore({
+			notifications: {
+				message: '',
+				fetching: false,
+				error: 'Test error'
+			}
+		})
 		view = render(
-			<Notification notification={notification} close={close} />
+			<Provider store={store}>
+				<Notification />
+			</Provider>
 		)
 	})
 
 	it('renders correctly', () => {
-		expect(screen.getByText(notification.message)).toBeInTheDocument()
-		expect(screen.getByText(notification.message).closest('div')).toHaveClass('error')
+		expect(screen.getByText('Test error')).toBeInTheDocument()
+		expect(screen.getByText('Test error').closest('div')).toHaveClass('error')
 
-		const closeButton = screen.getByRole('button', { name: 'Close' })
-		userEvent.click(closeButton)
-		expect(close).toHaveBeenCalledTimes(1)
+		expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument()
 	})
 
 	it('renders info message', () => {
 		const { rerender } = view
 		const message = 'Test info message'
 
+		store = mockStore({
+			notifications: {
+				message,
+				fetching: false,
+				error: ''
+			}
+		})
+
 		rerender(
-			<Notification notification={{ message }} close={close} />
+			<Provider store={store}>
+				<Notification />
+			</Provider>
 		)
 
 		expect(screen.getByText(message)).toBeInTheDocument()

@@ -94,3 +94,11 @@ export const formatDate = dateString => {
 	}
 	return date.toLocaleString('en-us', options)
 }
+
+/**
+* Check if object is empty
+* @param {Object} obj - Object to check
+*
+* @returns {boolean} - True if object exists, false otherwise
+*/
+export const pureObjectIsEmpty = obj => obj && obj.constructor === Object && Object.keys(obj).length === 0

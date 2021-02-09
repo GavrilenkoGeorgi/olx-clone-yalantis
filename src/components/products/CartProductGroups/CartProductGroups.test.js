@@ -14,7 +14,11 @@ describe('<CartProductGroups /> component', () => {
 	let store
 
 	beforeEach(() => {
-		store = mockStore({})
+		store = mockStore({
+			orders: {
+				lastId: ''
+			}
+		})
 
 		render(
 			<Provider store={store}>

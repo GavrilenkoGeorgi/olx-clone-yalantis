@@ -7,11 +7,13 @@
 	flex-direction: column
 	align-items: center
 	padding-top: $header-height
+	+responsive(1, 768px)
+		padding-right: .5rem // this!
 
 =notificationContainerLayout()
 	position: fixed
-	height: 100%
 	width: 100%
+	height: 100%
 	display: flex
 	align-items: center
 	justify-content: center
@@ -27,6 +29,25 @@
 		@media screen and (-webkit-min-device-pixel-ratio: nth($args, 1)) and (min-width: nth($args, 2))
 			@content
 
+=responsiveMin($args...)
+	@if length($args) == 1
+		@media screen and (min-width: nth($args, 1))
+			@content
+	@if length($args) == 2
+		@media screen and (-webkit-min-device-pixel-ratio: nth($args, 1)) and (min-width: nth($args, 2))
+			@content
+
+=defaultBorderRadius()
+	border-radius: .3rem
+
 =defaultBorder()
 	border: .1rem solid $light-gray-color
-	border-radius: .3rem
+	+defaultBorderRadius()
+
+=formSuccessBorder()
+	border: .1rem solid $success-color
+	+defaultBorderRadius()
+
+=formErrorBorder()
+	border: .1rem solid $error-color
+	+defaultBorderRadius()

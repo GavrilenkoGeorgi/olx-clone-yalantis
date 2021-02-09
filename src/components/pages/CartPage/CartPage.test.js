@@ -20,6 +20,9 @@ describe('<CartPage /> component', () => {
 				ids: [ product.id ],
 				entities: { [ product.id ]: product },
 				total: calcTotal(products.items)
+			},
+			orders: {
+				lastId: ''
 			}
 		})
 

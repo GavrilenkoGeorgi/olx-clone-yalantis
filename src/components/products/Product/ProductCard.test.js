@@ -40,6 +40,6 @@ describe('<ProductCard /> component', () => {
 		expect(within(productPrice).getByText(product.price)).toBeInTheDocument()
 
 		expect(screen.getByRole('button', { name: 'Add to cart' })).toBeInTheDocument()
-		expect(screen.getByText('Details...')).toHaveAttribute('href', `/products/${product.id}`)
+		expect(screen.getByText('Details...')).toHaveAttribute('href', `/product/${product.id}`)
 	})
 })

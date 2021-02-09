@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 
 import { useQuery } from '../../../hooks/useQuery'
 import { MIN_PRICE, MAX_PRICE } from '../../../constants/constants'
-import { buildQuery } from '../../../utils'
 
 import { ProductsList } from '../../products'
 import { ProductFilter, Pagination } from '../../widgets'
@@ -17,46 +16,33 @@ const ProductsPage = () => {
 	const filterSettings = {
 		origins: new Set(currentQuery.has('origins') && currentQuery.get('origins').split(',') || []),
 		minPrice: currentQuery.get('minPrice') || MIN_PRICE,
-		maxPrice: currentQuery.get('maxPrice') || MAX_PRICE
+		maxPrice: currentQuery.get('maxPrice') || MAX_PRICE,
 	}
 
 	const [ filter, setFilter ] = useState(filterSettings)
-	const [ search, setSearch ] = useState('')
-
-	const loadFilteredProducts = () => {
-		if (search !== currentQuery.toString()) {
-			history.push({ search })
-		}
-	}
 
 	useEffect(() => {
-		const params = []
+		if (filter.origins.size)
+			currentQuery.set('origins', Array.from(filter.origins).join(','))
+		else currentQuery.delete('origins')
 
-		if (filter.origins.size) {
-			params.push({
-				param: 'origins',
-				value: Array.from(filter.origins).join(',')
-			})
-		}
-
-		if (filter.minPrice !== MIN_PRICE)
-			params.push({
-				param: 'minPrice',
-				value: filter.minPrice
-			})
+		if (filter.minPrice && (filter.minPrice !== MIN_PRICE))
+			currentQuery.set('minPrice', filter.minPrice)
+		else currentQuery.delete('minPrice')
 
 		if (filter.maxPrice !== MAX_PRICE)
-			params.push({
-				param: 'maxPrice',
-				value: filter.maxPrice
-			})
+			currentQuery.set('maxPrice', filter.maxPrice)
+		else currentQuery.delete('maxPrice')
 
-		if (params.length) {
-			setSearch(buildQuery(params))
-		}
+	}, [ filter, currentQuery ])
 
-	}, [ filter ])
+	// filter products after setting up filter through UI
+	const loadFilteredProducts = () => {
+		const search = currentQuery.toString()
+		history.push({ search })
+	}
 
+	// change page settings
 	const changePages = ({ page, perPage }) => {
 		if (page) {
 			currentQuery.set('page', page)

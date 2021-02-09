@@ -1,0 +1,52 @@
+@import 'styles/colors'
+@import 'styles/mixins'
+
+.backdrop
+	background-color: white
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+	display: flex
+	position: fixed
+	align-items: center
+	justify-content: center
+	backdrop-filter: blur(.12rem)
+	-webkit-backdrop-filter: blur(.12rem)
+	background-color: rgba( 115, 133, 139, 0.3)
+
+.portal
+	background-color: white
+	margin: 0 auto
+	min-width: 40%
+	border-radius: .3rem
+	border: .1rem solid $primary-color
+	+responsive(2, 360px)
+		min-width: inherit
+		margin: 0 .5rem
+
+.header
+	border-radius: inherit
+	background-color: $primary-light-color
+	display: flex
+	align-content: center
+	align-items: center
+	justify-content: space-between
+	padding: 1rem
+	h1
+		margin: 0
+		margin-right: 1rem
+		font-size: 150%
+		+responsive(2, 360px)
+			font-size: inherit
+
+.closeBtn
+	padding: .4rem .7rem
+	font-weight: bold
+
+.content, .footer
+	padding: 1rem
+
+.footer
+	border-top: .1rem solid $primary-light-color
+	text-align: right
