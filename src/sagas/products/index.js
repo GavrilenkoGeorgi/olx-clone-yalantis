@@ -10,6 +10,10 @@ import {
 	editProductFailure, editProductSuccess,
 	setIdleStatus
 } from '../../store/products/productsSlice'
+import {
+	notificationsCleared,
+	messageAdded
+} from '../../store/notifications/notificationsSlice'
 
 import { DEFAULT_NOTIFICATION_TIMEOUT, DEBOUNCE_TIMEOUT } from '../../constants/settings'
 
@@ -34,7 +38,7 @@ const productsSagaSlice = createSliceSaga({
 					}
 					yield put(getProductsSuccess(products))
 				} catch (error) {
-					if (error.message) yield put(getProductsFailed(error.message))
+					if (error.message) yield put(getProductsFailed(error.message)) // moar error messages!
 					else yield put(getProductsFailed('Something went wrong, can\'t get products.'))
 				} finally {
 					yield delay(DEFAULT_NOTIFICATION_TIMEOUT)
@@ -43,7 +47,7 @@ const productsSagaSlice = createSliceSaga({
 			},
 			sagaType: SagaType.TakeLatest
 		},
-		onDeleteProduct: {
+		onDeleteProduct: { // no product deletion in the task
 			*fn(action) {
 				try {
 					yield deleteProduct(action.payload)
@@ -59,31 +63,35 @@ const productsSagaSlice = createSliceSaga({
 			sagaType: SagaType.TakeEvery
 		},
 		onAddProduct: {
-			*fn(action) {
+			*fn({ payload }) {
 				try {
-					const data = yield addProduct(action.payload)
+					const data = yield addProduct(payload)
 					yield put(addProductSuccess(data))
+					yield put(messageAdded(`${payload.product.name} added!`))
 				} catch (error) {
 					if (error.message) yield put(addProductFailure(error.message))
 					else yield put(addProductFailure('Something went wrong, can\'t create new product.'))
 				} finally {
 					yield delay(DEFAULT_NOTIFICATION_TIMEOUT)
 					yield put(setIdleStatus())
+					yield put(notificationsCleared())
 				}
 			},
 			sagaType: SagaType.TakeEvery
 		},
 		onEditProduct: {
-			*fn(action) {
+			*fn({ payload }) {
 				try {
-					const data = yield editProduct(action.payload)
+					const data = yield editProduct(payload)
 					yield put(editProductSuccess(data))
+					yield put(messageAdded(`${payload.product.name} successfully edited!`))
 				} catch (error) {
 					if (error.message) yield put(editProductFailure(error.message))
 					else yield put(editProductFailure('Something went wrong, can\'t edit product.'))
 				} finally {
 					yield delay(DEFAULT_NOTIFICATION_TIMEOUT)
 					yield put(setIdleStatus())
+					yield put(notificationsCleared())
 				}
 			},
 			sagaType: SagaType.TakeEvery

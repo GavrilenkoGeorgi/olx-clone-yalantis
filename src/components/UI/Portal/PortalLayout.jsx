@@ -21,6 +21,9 @@ const PortalLayout = ({ innerRef, title, children, close }) => {
 
 	}, [ close ])
 
+	// modify children props
+	const elements = React.cloneElement(children, { togglePortal: close })
+
 	return <div ref={backdrop} className={classes.backdrop}>
 		<div ref={innerRef} className={classes.portal}>
 			<div className={classes.header}>
@@ -32,7 +35,7 @@ const PortalLayout = ({ innerRef, title, children, close }) => {
 				/>
 			</div>
 			<div className={classes.content}>
-				{children}
+				{elements}
 			</div>
 			<div className={classes.footer}>
 				<Button
