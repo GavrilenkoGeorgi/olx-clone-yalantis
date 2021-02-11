@@ -11,7 +11,7 @@ import classes from './ProductsPage.module.sass'
 const ProductsPage = () => {
 
 	const history = useHistory()
-	let currentQuery = useQuery()
+	const currentQuery = useQuery()
 
 	const filterSettings = {
 		origins: new Set(currentQuery.has('origins') && currentQuery.get('origins').split(',') || []),
