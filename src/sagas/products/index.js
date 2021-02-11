@@ -4,7 +4,7 @@ import { createSliceSaga, SagaType } from 'redux-toolkit-saga'
 import { getProducts, deleteProduct,
 	addProduct, editProduct } from '../../api/products'
 import {
-	getProductsSuccess, getProductsFailed,
+	getProductsSuccess,
 	deleteProductFailure, deleteProductSuccess,
 	addProductFailure, addProductSuccess,
 	editProductFailure, editProductSuccess,
@@ -12,10 +12,12 @@ import {
 } from '../../store/products/productsSlice'
 import {
 	notificationsCleared,
-	messageAdded
+	messageAdded,
+	errorAdded
 } from '../../store/notifications/notificationsSlice'
 
 import { DEFAULT_NOTIFICATION_TIMEOUT, DEBOUNCE_TIMEOUT } from '../../constants/settings'
+import { getErrorMessageText } from '../../utils'
 
 const productsSagaSlice = createSliceSaga({
 	// The name is the prefix to differentiate the slice actions
@@ -38,8 +40,9 @@ const productsSagaSlice = createSliceSaga({
 					}
 					yield put(getProductsSuccess(products))
 				} catch (error) {
-					if (error.message) yield put(getProductsFailed(error.message)) // moar error messages!
-					else yield put(getProductsFailed('Something went wrong, can\'t get products.'))
+					const message = getErrorMessageText(error)
+					if (message)
+						yield put(errorAdded(message))
 				} finally {
 					yield delay(DEFAULT_NOTIFICATION_TIMEOUT)
 					yield put(setIdleStatus())
@@ -48,13 +51,15 @@ const productsSagaSlice = createSliceSaga({
 			sagaType: SagaType.TakeLatest
 		},
 		onDeleteProduct: { // no product deletion in the task
-			*fn(action) {
+			*fn({ payload }) {
 				try {
-					yield deleteProduct(action.payload)
-					yield put(deleteProductSuccess(action.payload))
+					yield deleteProduct(payload)
+					yield put(deleteProductSuccess(payload))
 				} catch (error) {
-					if (error.message) yield put(deleteProductFailure(error.message))
-					else yield put(deleteProductFailure('Something went wrong, can\'t delete product.'))
+					const message = getErrorMessageText(error)
+					if (message)
+						yield put(errorAdded(message))
+					yield put(deleteProductFailure(`Can't delete product ${payload.id}`))
 				} finally {
 					yield delay(DEFAULT_NOTIFICATION_TIMEOUT)
 					yield put(setIdleStatus())
@@ -69,8 +74,10 @@ const productsSagaSlice = createSliceSaga({
 					yield put(addProductSuccess(data))
 					yield put(messageAdded(`${payload.product.name} added!`))
 				} catch (error) {
-					if (error.message) yield put(addProductFailure(error.message))
-					else yield put(addProductFailure('Something went wrong, can\'t create new product.'))
+					const message = getErrorMessageText(error)
+					if (message)
+						yield put(errorAdded(message))
+					yield put(addProductFailure(`Can't add product ${payload.product.name}`))
 				} finally {
 					yield delay(DEFAULT_NOTIFICATION_TIMEOUT)
 					yield put(setIdleStatus())
@@ -86,8 +93,10 @@ const productsSagaSlice = createSliceSaga({
 					yield put(editProductSuccess(data))
 					yield put(messageAdded(`${payload.product.name} successfully edited!`))
 				} catch (error) {
-					if (error.message) yield put(editProductFailure(error.message))
-					else yield put(editProductFailure('Something went wrong, can\'t edit product.'))
+					const message = getErrorMessageText(error)
+					if (message)
+						yield put(errorAdded(message))
+					yield put(editProductFailure(`Can't edit product ${payload.product.name}`))
 				} finally {
 					yield delay(DEFAULT_NOTIFICATION_TIMEOUT)
 					yield put(setIdleStatus())

@@ -3,6 +3,7 @@ export {
 	groupByOrigin,
 	formatDate,
 	buildQuery,
-	editableParam
+	editableParam,
+	getErrorMessageText
 } from './utils'
 export { loadData, saveData } from './sessionStorage'

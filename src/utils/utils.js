@@ -125,3 +125,21 @@ export const editableParam = (editable, search) => {
 		return param = `?${edit}`
 	}
 }
+
+/**
+ * Get error message text from response
+ * @param {Object} response - Response object
+ *
+ * @throw - Will throw an error if argument is missing
+ *
+ * @returns {string} - Error message
+ */
+
+export const getErrorMessageText = ({ response }) => {
+	const { data } = response
+
+	if (!data)
+		throw new Error('getErrorMessageText: Response object is required.')
+
+	return data.error.message
+}

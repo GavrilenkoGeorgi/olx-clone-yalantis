@@ -29,7 +29,8 @@ const AppContainer = ({ children }) => {
 	}
 
 	const handleError = error => {
-		dispatch(errorAdded(error.message))
+		if (!error.response)
+			dispatch(errorAdded(error.message))
 		dispatch(fetchingState(false))
 		return Promise.reject(error)
 	}

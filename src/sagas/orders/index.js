@@ -11,10 +11,12 @@ import {
 	selectLastAddedId,
 	lastIdCleared
 } from '../../store/orders/ordersSlice'
+import { errorAdded } from '../../store/notifications/notificationsSlice'
 import { cartEmptied } from '../../store/cart/cartSlice'
 
 import { getOrders, getOrderDetails, addOrder } from '../../api/orders'
 import { history } from '../../components/containers/App'
+import { getErrorMessageText } from '../../utils'
 
 // redirect after new order is created
 function navigateTo(location) {
@@ -31,20 +33,24 @@ const ordersSagaSlice = createSliceSaga({
 					const orders = yield getOrders()
 					yield put(getOrdersSuccess(orders))
 				} catch (error) {
-					if (error.message) yield put(getOrdersFailure(error.message))
-					else yield put(getOrdersFailure('Something went wrong, can\'t get orders.'))
+					const message = getErrorMessageText(error)
+					if (message)
+						yield put(errorAdded(message))
+					yield put(getOrdersFailure('Can\'t get list orders.'))
 				}
 			},
 			sagaType: SagaType.TakeEvery
 		},
 		onGetOrderDetails: {
-			*fn(action) {
+			*fn({ payload }) {
 				try {
-					const order = yield getOrderDetails(action.payload)
+					const order = yield getOrderDetails(payload)
 					yield put(getOrderDetailsSuccess(order))
 				} catch (error) {
-					if (error.message) yield put(getOrderDetailsFailure(error.message))
-					else yield put(getOrderDetailsFailure('Something went wrong, can\'t get order details.'))
+					const message = getErrorMessageText(error)
+					if (message)
+						yield put(errorAdded(message))
+					yield put(getOrderDetailsFailure(`Can't get order details ${payload.id}.`))
 				}
 			},
 			sagaType: SagaType.TakeEvery
@@ -59,8 +65,10 @@ const ordersSagaSlice = createSliceSaga({
 					yield call(navigateTo, `/orders/${id}`)
 					yield put(lastIdCleared())
 				} catch (error) {
-					if (error.message) yield put(addOrderFailure(error.message))
-					else yield put(addOrderFailure('Something went wrong, can\'t add new order.'))
+					const message = getErrorMessageText(error)
+					if (message)
+						yield put(errorAdded(message))
+					yield put(addOrderFailure('Can\'t add new order.'))
 				}
 			},
 			sagaType: SagaType.TakeEvery
