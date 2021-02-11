@@ -5,7 +5,7 @@ import './index.css'
 import { App } from './components/containers'
 import { configureAppStore } from './store/store'
 
-const { store } = configureAppStore()
+export const { store } = configureAppStore()
 
 ReactDOM.render(
 	<React.StrictMode>

@@ -8,6 +8,27 @@ import cartReducer from './cart/cartSlice'
 import notificationsReducer from './notifications/notificationsSlice'
 import ordersReducer from './orders/ordersSlice'
 
+function createSagaInjector(runSaga, rootSaga) {
+	const injectedSagas = new Map()
+	const isInjected = key => injectedSagas.has(key)
+	const injectSaga = (key, saga) => {
+		if (isInjected(key)) {
+			return
+		}
+		const task = runSaga(saga)
+		injectedSagas.set(key, task)
+	}
+	const ejectSaga = key => {
+		const task = injectedSagas.get(key)
+		if (task.isRunning()) {
+			task.cancel()
+		}
+		injectedSagas.delete(key)
+	}
+	injectSaga('root', rootSaga)
+	return { injectSaga, ejectSaga }
+}
+
 export const configureAppStore = (initialState = {}) => {
 	const sagaMiddleware = createSagaMiddleware()
 
@@ -24,8 +45,8 @@ export const configureAppStore = (initialState = {}) => {
 		devTools: process.env.NODE_ENV !== 'production'
 	})
 
-	sagaMiddleware.run(rootSaga)
+	// sagaMiddleware.run(rootSaga)
+	Object.assign(store, createSagaInjector(sagaMiddleware.run, rootSaga))
 
 	return { store }
 }
-
