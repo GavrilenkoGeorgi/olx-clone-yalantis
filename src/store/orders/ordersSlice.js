@@ -9,7 +9,7 @@ const ordersAdapter = createEntityAdapter({
 	sortComparer: (a, b) => b.createdAt.localeCompare(a.createdAt)
 })
 
-const initialState = ordersAdapter.getInitialState({
+export const initialState = ordersAdapter.getInitialState({
 	status: 'idle',
 	error: null,
 	lastId: '',
@@ -33,7 +33,7 @@ const ordersSlice = createSlice({
 		addOrderSuccess(state, action) {
 			state.status = settings.SUCCESS_STATUS
 			// createdAt field is absent in the api reponse
-			const createdAt = new Date().toISOString()
+			const createdAt = new Date().toISOString() // this messes up tests
 			ordersAdapter.addOne(state, { ...action.payload, createdAt })
 			// set latest added ID for redirect
 			state.lastId = action.payload.id
@@ -43,9 +43,9 @@ const ordersSlice = createSlice({
 			state.error = action.payload
 		},
 		// get all orders
-		getOrdersSuccess(state, action) {
+		getOrdersSuccess(state, { payload }) {
 			state.status = settings.SUCCESS_STATUS
-			ordersAdapter.setAll(state, action.payload.items) // !!!!
+			ordersAdapter.setAll(state, payload.items)
 		},
 		getOrdersFailure(state, action) {
 			state.status = settings.FAILURE_STATUS
