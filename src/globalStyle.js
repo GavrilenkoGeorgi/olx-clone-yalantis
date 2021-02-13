@@ -1,0 +1,40 @@
+import { createGlobalStyle } from 'styled-components'
+import { normalize } from 'styled-normalize'
+
+export const GlobalStyle = createGlobalStyle`
+	${normalize}
+	html,
+	body {
+		height: 100%;
+		margin: 0;
+	}
+
+	html {
+		overflow-x: hidden;
+		width: 100vw;
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+			'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+			sans-serif;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	*, *:before, *:after {
+		box-sizing: inherit;
+	}
+
+	code {
+		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+			monospace;
+	}
+
+	main {
+		display: flex;
+		flex-flow: column;
+		height: 100%;
+	}
+`

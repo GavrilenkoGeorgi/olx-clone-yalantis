@@ -4,7 +4,7 @@ import { orderType } from '../propTypes'
 import { Link } from 'react-router-dom'
 import routes from '../routes/routesConstants'
 
-import classes from './Order.module.sass'
+import { OrderContainer } from './OrderStyle'
 
 const Order = ({ order }) => {
 
@@ -20,7 +20,7 @@ const Order = ({ order }) => {
 		return Intl.DateTimeFormat('ua-UA', options).format(date)
 	}
 
-	return <div className={classes.container}>
+	return <OrderContainer>
 		<Link to={`${routes.orders}/${order.id}`}>
 			{order.id.substring(0,8)}
 		</Link>
@@ -45,7 +45,7 @@ const Order = ({ order }) => {
 				</ul>
 			))}
 		</div>
-	</div>
+	</OrderContainer>
 }
 
 Order.propTypes = {
