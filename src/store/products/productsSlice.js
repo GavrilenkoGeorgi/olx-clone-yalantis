@@ -9,7 +9,7 @@ const productsAdapter = createEntityAdapter({
 	sortComparer: (a, b) => b.createdAt.localeCompare(a.createdAt)
 })
 
-const initialState = productsAdapter.getInitialState({
+export const initialState = productsAdapter.getInitialState({
 	page: 0,
 	perPage: 0,
 	totalItems: 0,

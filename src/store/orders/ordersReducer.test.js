@@ -85,4 +85,17 @@ describe('Orders reducer', () => {
 			})
 	})
 
+	it('should handle getOrdersFailure action', () => {
+		expect(
+			reducer(initialState, {
+				type: actions.getOrderDetailsFailure,
+				payload: 'get orders failure error'
+			}))
+			.toEqual({
+				...initialState,
+				status: settings.FAILURE_STATUS,
+				error: 'get orders failure error'
+			})
+	})
+
 })

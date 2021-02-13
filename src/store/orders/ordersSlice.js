@@ -51,7 +51,7 @@ const ordersSlice = createSlice({
 			state.status = settings.FAILURE_STATUS
 			state.error = action.payload
 		},
-		lastIdCleared(state) {
+		lastIdCleared(state) { // !
 			state.lastId = ''
 		}
 	}
