@@ -1,8 +1,33 @@
 [![ci-tests Actions Status](https://github.com/GavrilenkoGeorgi/olx-clone-yalantis/workflows/ci-tests/badge.svg)](https://github.com/GavrilenkoGeorgi/olx-clone-yalantis/actions)
 
-# Getting Started with Create React App
+# OLX clone using React 16+ functional components with hooks
+- State management: reduxjs/toolkit, redux-toolkit-saga
+- Forms and validation are made with Formik and Yup
+- Jest tests for reducers and components using 'react testing library'
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features
+User can:
+- create and edit own products
+- view created producs list
+- view all available products list
+- sort all products (own/created by others) by origin and min/max price
+- create orders from products created by other users
+- navigate list of products using server pagination
+- adjust amount of products on a single page
+
+Cart component:
+- shows all added products
+- can remove arbitrary amount of products from order preview
+- is emptied on creating order and user is redirected to the order details
+
+Orders:
+- details can be viewed for each one
+- list of all orders is available
+
+Misc:
+- user filter requests are debounced, but not initital ones
+- filter settings are set on page load from URL params
+- API calls are made using sagas
 
 ## Available Scripts
 
