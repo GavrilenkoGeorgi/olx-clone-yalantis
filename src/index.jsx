@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { configureAppStore } from './store/store'
 
 import { App } from './components/containers'
-import { GlobalStyle } from './globalStyle'
+import { GlobalStyle } from './styles/globalStyle'
 
 const { store } = configureAppStore()
 

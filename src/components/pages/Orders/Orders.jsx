@@ -1,16 +1,13 @@
 import React from 'react'
-import OrdersList from '../../Orders/OrdersList'
 
-import classes from './Orders.module.sass'
+import OrdersList from '../../Orders/OrdersList'
+import { Section, Header } from './OrdersStyle'
 
 const Orders = () => {
-
-	return <section className={classes.ordersLayout}>
-		<h1>Orders</h1>
-		<article>
-			<OrdersList />
-		</article>
-	</section>
+	return <Section>
+		<Header>Orders</Header>
+		<OrdersList />
+	</Section>
 }
 
 export default Orders

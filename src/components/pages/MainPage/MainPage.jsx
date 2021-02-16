@@ -1,11 +1,12 @@
 import React from 'react'
-import classes from './MainPage.module.sass'
+
+import { Section } from './MainPageStyle'
 
 const MainPage = () => {
-	return <section className={classes.content}>
+	return <Section>
 		<h1>Main page</h1>
 		<a href="/products">List of products is here.</a>
-	</section>
+	</Section>
 }
 
 export default MainPage

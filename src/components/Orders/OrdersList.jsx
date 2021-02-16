@@ -9,7 +9,7 @@ import {
 } from '../../store/orders/ordersSlice'
 import { onGetOrders } from '../../sagas/orders'
 
-import classes from './OrdersList.module.sass'
+import { Article } from './OrderListStyle'
 import OrderCard from './OrderCard'
 
 import * as settings from '../../constants/settings'
@@ -44,9 +44,9 @@ const OrdersList = () => {
 
 	const nothingFoundMessage = <h3>No orders found.</h3>
 
-	return <section className={classes.layout}>
+	return <Article>
 		{content?.length ? content : nothingFoundMessage}
-	</section>
+	</Article>
 }
 
 export default OrdersList
