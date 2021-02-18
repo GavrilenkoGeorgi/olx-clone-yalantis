@@ -1,83 +1,71 @@
 import {
 	createSlice,
-	createAsyncThunk,
 	createEntityAdapter
 } from '@reduxjs/toolkit'
-import { productsListApi } from '../../api/productsApi'
-import URIs from '../../api/URIs'
+
+import * as settings from '../../constants/settings'
 
 const ordersAdapter = createEntityAdapter({
 	sortComparer: (a, b) => b.createdAt.localeCompare(a.createdAt)
 })
 
-const initialState = ordersAdapter.getInitialState({
+export const initialState = ordersAdapter.getInitialState({
 	status: 'idle',
 	error: null,
 	lastId: '',
 	singleOrderDetails: {}
 })
 
-export const fetchOrders = createAsyncThunk('orders/fetchOrders',
-	async () => {
-		let response =  await productsListApi.get(URIs.orders)
-		return response.data
-	})
-
-export const postOrder = createAsyncThunk('orders/postOrder',
-	async (order) => {
-		let response =  await productsListApi.post(URIs.orders, order)
-		return response.data
-	})
-
-export const getOrder = createAsyncThunk('orders/getOrder',
-	async (id) => {
-		let response =  await productsListApi.get(`${URIs.orders}/${id}`)
-		return response.data
-	})
-
 const ordersSlice = createSlice({
 	name: 'orders',
 	initialState,
 	reducers: {
-		orderAdded(state, action) {
-			ordersAdapter.addOne(state, action.payload)
+		// get order details
+		getOrderDetailsSuccess(state, action) {
+			state.status = settings.SUCCESS_STATUS
+			state.singleOrderDetails = action.payload
 		},
-		lastIdCleared(state) {
-			state.lastId = ''
-		}
-	},
-	extraReducers: {
-		[fetchOrders.pending]: (state) => {
-			state.status = 'loading'
+		getOrderDetailsFailure(state, action) {
+			state.status = settings.FAILURE_STATUS
+			state.error = action.payload
 		},
-		[fetchOrders.fulfilled]: (state, { payload }) => {
-			state.status = 'succeeded'
+		// add order
+		addOrderSuccess(state, action) {
+			state.status = settings.SUCCESS_STATUS
+			// createdAt field is absent in the api reponse
+			const createdAt = new Date().toISOString() // this messes up tests
+			ordersAdapter.addOne(state, { ...action.payload, createdAt })
+			// set latest added ID for redirect
+			state.lastId = action.payload.id
+		},
+		addOrderFailure(state, action) {
+			state.status = settings.FAILURE_STATUS
+			state.error = action.payload
+		},
+		// get all orders
+		getOrdersSuccess(state, { payload }) {
+			state.status = settings.SUCCESS_STATUS
 			ordersAdapter.setAll(state, payload.items)
 		},
-		[fetchOrders.rejected]: (state, action) => {
-			state.status = 'failed'
-			state.error = action.error.message
+		getOrdersFailure(state, action) {
+			state.status = settings.FAILURE_STATUS
+			state.error = action.payload
 		},
-		[postOrder.fulfilled]: (state, { payload }) => {
-			state.status = 'succeeded'
-			const createdAt = new Date().toISOString()
-			ordersAdapter.addOne(state, { ...payload, createdAt })
-			state.lastId = payload.id
-		},
-		[getOrder.pending]: (state) => {
-			state.status = 'loading'
-		},
-		[getOrder.fulfilled]: (state, { payload }) => {
-			state.status = 'succeeded'
-			state.singleOrderDetails = payload
-		},
-		[getOrder.rejected]: (state) => {
-			state.status = 'failed'
+		lastIdCleared(state) { // !
+			state.lastId = ''
 		}
 	}
 })
 
-export const { orderAdded, lastIdCleared } = ordersSlice.actions //ffs
+export const {
+	lastIdCleared,
+	getOrdersSuccess,
+	getOrdersFailure,
+	getOrderDetailsSuccess,
+	getOrderDetailsFailure,
+	addOrderSuccess,
+	addOrderFailure
+} = ordersSlice.actions
 
 export default ordersSlice.reducer
 

@@ -2,11 +2,8 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import {
-	getOrder,
-	lastIdCleared,
-	selectSigleOrderDetails
-} from '../../../store/orders/ordersSlice'
+import { selectSigleOrderDetails } from '../../../store/orders/ordersSlice'
+import { onGetOrderDetails } from '../../../sagas/orders'
 
 import { pureObjectIsEmpty } from '../../../utils/utils'
 
@@ -17,8 +14,7 @@ const OrderDetails = () => {
 	const order = useSelector(state => selectSigleOrderDetails(state))
 
 	useEffect(() => {
-		dispatch(getOrder(id))
-		dispatch(lastIdCleared())
+		dispatch(onGetOrderDetails(id))
 	}, [ dispatch, id ])
 
 	if (!pureObjectIsEmpty(order)) {

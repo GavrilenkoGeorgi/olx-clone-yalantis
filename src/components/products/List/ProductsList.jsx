@@ -3,15 +3,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
 import {
-	fetchProducts,
 	selectProductIds,
 	selectProductsStatus,
 	selectProductsError
 } from '../../../store/products/productsSlice'
+import { onGetProducts } from '../../../sagas/products'
+
 import routes from '../../routes/routesConstants'
+import * as settings from '../../../constants/settings'
+import { editableParam } from '../../../utils'
 
 import ProductCard from '../Product/ProductCard'
 import classes from './ProductsList.module.sass'
+
 
 const ProductsList = () => {
 
@@ -24,35 +28,32 @@ const ProductsList = () => {
 	const editable = location.pathname === routes.productsCreated ? true : false
 
 	const makeQuery = useCallback((editable, search) => {
-		if (search) return `?editable=${editable}&${location.search.substring(1)}`
-		else return `?editable=${editable}`
+		const isEditable = editableParam(editable, search)
+
+		if (search) return `${location.search}${isEditable}`
+		else if (editable && !search) return isEditable
+		else return ''
+
 	}, [ location.search ])
 
 	useEffect(() => {
-		// initial fetch
-		if (productsStatus === 'idle') {
-			dispatch(fetchProducts(`?editable=${editable}`))
-		}
-	}, [ productsStatus, dispatch, location, editable ])
-
-	useEffect(() => {
-		// filtered fetch
 		const query = makeQuery(editable, location.search)
-		dispatch(fetchProducts(query))
+		dispatch(onGetProducts(query))
 	}, [ location, dispatch, editable, makeQuery ])
 
 	let content = []
+	const idleStatuses = [ settings.IDLE_STATUS, settings.SUCCESS_STATUS ]
 
-	if (productsStatus === 'loading') {
+	if (productsStatus === settings.LOADING_STATUS) {
 		<div>Loading...</div>
-	} else if (productsStatus === 'succeeded') {
+	} else if (idleStatuses.includes(productsStatus)) {
 		content = orderedProductIds.map(productId => (
 			<ProductCard
 				key={productId}
 				productId={productId}
 			/>
 		))
-	} else if (productsStatus === 'failed') {
+	} else if (productsStatus === settings.FAILURE_STATUS) {
 		content = <div>{error}</div>
 	}
 

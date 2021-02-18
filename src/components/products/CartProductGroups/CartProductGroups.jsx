@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 import { arrayOf } from 'prop-types'
 import { productType } from '../../propTypes'
 
-import routes from '../../routes/routesConstants'
-import { postOrder, selectLastAddedId } from '../../../store/orders/ordersSlice'
-import { cartEmptied } from '../../../store/cart/cartSlice'
+import { onAddOrder } from '../../../sagas/orders'
 
 import { Button } from '../../UI'
 import ProductGroup from './ProductGroup/ProductGroup'
@@ -15,8 +12,6 @@ import classes from './CartProductGroups.module.sass'
 const CartProductGroups = ({ items }) => {
 
 	const dispatch = useDispatch()
-	const history = useHistory()
-	const lastId = useSelector(selectLastAddedId)
 
 	const orderPieces = items.map(item => ({ productId: item.id, count: item.quantity }))
 	const data = {
@@ -26,15 +21,8 @@ const CartProductGroups = ({ items }) => {
 	}
 
 	const handleOrder = () => {
-		dispatch(postOrder(data))
-		dispatch(cartEmptied())
+		dispatch(onAddOrder(data))
 	}
-
-	useEffect(() => {
-		if (lastId){
-			history.push(`${routes.orders}/${lastId}`)
-		}
-	}, [ lastId, history ])
 
 	if (!items.length)
 		return <div className={classes.emptyCart}>

@@ -1,5 +1,6 @@
 import React, { useState, createRef, useEffect, useMemo, useCallback } from 'react'
-import { string, object } from 'prop-types'
+import { string } from 'prop-types'
+import { children } from '../../propTypes'
 
 import { FOCUSABLE_ELEMENTS_LIST } from '../../../constants/constants'
 import { Button, PortalContainer, PortalLayout } from '../../UI'
@@ -49,7 +50,7 @@ const PortalButton = ({ title, btnLabel, children }) => {
 			close={() => setOn(!isOn)}
 			innerRef={ref}
 		>
-			{props.children}
+			{children}
 		</PortalLayout>
 	))
 
@@ -76,7 +77,7 @@ const PortalButton = ({ title, btnLabel, children }) => {
 PortalButton.propTypes = {
 	title: string.isRequired,
 	btnLabel: string.isRequired,
-	children: object
+	children: children
 }
 
 export default PortalButton

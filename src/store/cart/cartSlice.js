@@ -7,7 +7,7 @@ const cartAdapter = createEntityAdapter({
 	sortComparer: (a, b) => a.name.localeCompare(b.name)
 })
 
-const initialState = cartAdapter.getInitialState({
+export const initialState = cartAdapter.getInitialState({
 	total: 0
 })
 

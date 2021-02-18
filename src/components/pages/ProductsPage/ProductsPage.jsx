@@ -16,12 +16,25 @@ const ProductsPage = () => {
 	const filterSettings = {
 		origins: new Set(currentQuery.has('origins') && currentQuery.get('origins').split(',') || []),
 		minPrice: currentQuery.get('minPrice') || MIN_PRICE,
-		maxPrice: currentQuery.get('maxPrice') || MAX_PRICE,
+		maxPrice: currentQuery.get('maxPrice') || MAX_PRICE
 	}
 
 	const [ filter, setFilter ] = useState(filterSettings)
 
 	useEffect(() => {
+		// empty filter on page change
+		if (!history.location.search) {
+			const emptyFilter = {
+				origins: new Set([]),
+				minPrice: MIN_PRICE,
+				maxPrice: MAX_PRICE
+			}
+			setFilter({ ...emptyFilter })
+		}
+	}, [ history.location.search ])
+
+	useEffect(() => {
+		// change filter settings
 		if (filter.origins.size)
 			currentQuery.set('origins', Array.from(filter.origins).join(','))
 		else currentQuery.delete('origins')

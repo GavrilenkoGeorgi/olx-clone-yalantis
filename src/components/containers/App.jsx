@@ -6,7 +6,7 @@ import { Routes } from '../routes'
 import { Header, Footer } from '../pages'
 import { createBrowserHistory } from 'history'
 
-const history = createBrowserHistory()
+export const history = createBrowserHistory()
 
 const App = () => {
 	return <Router history={history}>
